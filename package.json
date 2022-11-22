@@ -42,5 +42,8 @@
   },
   "ct3aMetadata": {
     "initVersion": "6.10.0"
+  },
+  "browser": {
+    "child_process": false
   }
 }
