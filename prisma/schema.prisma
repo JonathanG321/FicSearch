@@ -71,8 +71,8 @@ model AO3Work {
   author           String
   singleChapter    Boolean
   wordCount        Int
-  language         String[]
-  fandoms          String[]
+  // language         String[]
+  // fandoms          String[]
   rating           Int
   hits             Int
   kudos            Int
@@ -80,7 +80,7 @@ model AO3Work {
   comments         Int
   completionStatus Boolean
   revisedAt        DateTime
-  characters       String[]
-  relationships    String[]
-  tags             String[]
+  // characters       String[]
+  // relationships    String[]
+  // tags             String[]
 }
