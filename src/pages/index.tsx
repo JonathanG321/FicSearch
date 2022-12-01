@@ -7,6 +7,8 @@ import { trpc } from "../utils/trpc";
 
 const Home: NextPage = () => {
   const hello = trpc.example.hello.useQuery({ text: "from tRPC" });
+  const test = trpc.AO3.search.useQuery({ fandoms: "My Hero Academia" });
+  console.log(test.data);
 
   return (
     <>
@@ -27,8 +29,7 @@ const Home: NextPage = () => {
             >
               <h3 className="text-2xl font-bold">First Steps →</h3>
               <div className="text-lg">
-                Just the basics - Everything you need to know to set up your
-                database and authentication.
+                Just the basics - Everything you need to know to set up your database and authentication.
               </div>
             </Link>
             <Link
@@ -37,8 +38,7 @@ const Home: NextPage = () => {
             >
               <h3 className="text-2xl font-bold">Documentation →</h3>
               <div className="text-lg">
-                Learn more about Create T3 App, the libraries it uses, and how
-                to deploy it.
+                Learn more about Create T3 App, the libraries it uses, and how to deploy it.
               </div>
             </Link>
           </div>
@@ -61,7 +61,7 @@ const AuthShowcase: React.FC = () => {
 
   const { data: secretMessage } = trpc.auth.getSecretMessage.useQuery(
     undefined, // no input
-    { enabled: sessionData?.user !== undefined },
+    { enabled: sessionData?.user !== undefined }
   );
 
   return (

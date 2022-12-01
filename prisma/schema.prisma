@@ -64,3 +64,23 @@ model VerificationToken {
 
   @@unique([identifier, token])
 }
+
+model AO3Work {
+  id               String   @id @default(cuid())
+  title            String
+  author           String
+  singleChapter    Boolean
+  wordCount        Int
+  // language         String[]
+  // fandoms          String[]
+  rating           Int
+  hits             Int
+  kudos            Int
+  bookmarks        Int
+  comments         Int
+  completionStatus Boolean
+  revisedAt        DateTime
+  // characters       String[]
+  // relationships    String[]
+  // tags             String[]
+}
