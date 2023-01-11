@@ -31,14 +31,14 @@ function spaceBattlesInput() {
       keyWords: z.string().optional().default(""),
       tags: z.array(z.string()).optional().default([]),
       excludeTags: z.array(z.string()).optional().default([]),
-      newerThan: z.date(),
-      olderThan: z.date(),
+      newerThan: z.date().optional(),
+      olderThan: z.date().optional(),
       users: z.array(z.string()).optional().default([]),
-      wordCountLower: z.string(),
-      wordCountUpper: z.string(),
-      replies: z.string(),
-      order: z.string().default("date"),
-      session: z.null().default(null),
+      wordCountLower: z.string().optional(),
+      wordCountUpper: z.string().optional(),
+      replies: z.string().optional(),
+      order: z.string().optional().default("date"),
+      session: z.null().optional().default(null),
     })
     .nullish();
 }
@@ -95,6 +95,7 @@ async function getWorkFromArticle(article: HTMLElement): Promise<Work> {
 async function processSpaceBattlesSearch(req: Response) {
   const parsed = parse(await req.text());
   const results = parsed.querySelector("ol.block-body");
+  console.log(results);
 
   if (
     !results ||
@@ -117,11 +118,12 @@ export const spaceBattlesRouter = router({
     if (!input) throw new Error("Something went wrong with the spaceBattles Router. No input was given.");
 
     const url = getSpaceBattlesURL(input);
+    console.log(url);
 
     // const search = { results: [], totalResults: 0, pages: 0 };
 
     let req = null;
-    if (input.session === null) req = await fetch(url);
+    if (input.session === null) req = await fetch(url, { headers: [] });
     // else req = session.get(url)
     if (!req)
       throw new Error("Something went wrong with fetching from SpaceBattles. No request was returned.");
