@@ -7,8 +7,8 @@ import { trpc } from "../utils/trpc";
 
 const Home: NextPage = () => {
   const hello = trpc.example.hello.useQuery({ text: "from tRPC" });
-  const test = trpc.AO3.search.useQuery({ fandoms: "My Hero Academia" });
-  console.log(test.data);
+  const test = trpc.spaceBattles.search.useQuery({ keyWords: "hello" });
+  // console.log(test.data);
 
   return (
     <>
