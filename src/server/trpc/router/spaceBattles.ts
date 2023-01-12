@@ -123,7 +123,15 @@ export const spaceBattlesRouter = router({
     // const search = { results: [], totalResults: 0, pages: 0 };
 
     let req = null;
-    if (input.session === null) req = await fetch(url, { headers: [] });
+    if (input.session === null)
+      req = await fetch(url, {
+        headers: [
+          [
+            "cookie",
+            "__gads=ID=abd70bf29679d654:T=1643190624:S=ALNI_Mb8fxRl_aj5UkA2kncOcLxh0jGDDw; cto_bundle=_s2EJV9QRmdVb3FtWTVBM0YlMkJsM3ltZjNhU2FBajF2dHlhWHdDTkN6MndlN1kxJTJCbW5YZEthWFNsT0hmWU8zSEltQTRnJTJCVjhhZmdOMXlqbG80YXN0cExQNkEwdVlZdWhPckRtVG5WUmR5U09sV3JRNEFwZUt5MCUyRlZLRkJhOXg2aHBBYU83empGTWtTNzFpc3NWYkZPTWg4VnExc1VYeHZOeEljdEZuRjNCSDFYdWJQZFpuTTM0ajVvWiUyQjQyelhUOEdHeGRZVk1UeWFzSHRHOWx0WHJVTW1KS2NvUSUzRCUzRA; cf_clearance=rWA_fGyucvAqRh7IuRxoMvcZtrFCdYQ_wSSZib3oqrE-1661744578-0-150; _pbjs_userid_consent_data=3524755945110770; __qca=P0-249217702-1671157176011; __gpi=UID=00000908d8dcb887:T=1670126958:RT=1672743521:S=ALNI_MYaTFAE7_qPdIyIt6tsY8coHpe36Q; _gid=GA1.2.212849269.1673386887; _lr_geo_location=CA; _ga=GA1.2.1513995099.1568686015; _ga_F3CLTL2CJQ=GS1.1.1673389445.123.0.1673389448.0.0.0; xf_session=U45Linrs-vPRMG6_YS53voeAT6nxPKLL; xf_csrf=djQcqR6nLWL8-R-O",
+          ],
+        ],
+      });
     // else req = session.get(url)
     if (!req)
       throw new Error("Something went wrong with fetching from SpaceBattles. No request was returned.");
