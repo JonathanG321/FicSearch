@@ -47,7 +47,7 @@ const spaceBattlesInputType = spaceBattlesInput()._type;
 
 function getSpaceBattlesURL(input: NonNullable<typeof spaceBattlesInputType>) {
   let url =
-    "https://forums.spacebattles.com/search/40247702/?q=%2A&t=post&c[child_nodes]=1&c[in_threadmark_categories]=1&c[nodes][0]=18&c[threadmark_categories][0]=1&c[threadmark_categories][1]=16&c[threadmark_only]=1&g=1";
+    "https://forums.spacebattles.com/search?q=*&t=post&c[child_nodes]=1&c[in_threadmark_categories]=1&c[nodes][0]=18&c[threadmark_categories][0]=1&c[threadmark_categories][1]=16&c[threadmark_only]=1&g=1";
   if (input.keyWords) url = url.concat(`&q=${input.keyWords}`);
   if (input.tags[0]) url = url.concat(`&c[tags]=${input.tags.join(",")}`);
   if (input.excludeTags[0]) url = url.concat(`&c[excludeTags]=${input.excludeTags.join(",")}`);
@@ -94,7 +94,7 @@ async function getWorkFromArticle(article: HTMLElement): Promise<Work> {
 async function processSpaceBattlesSearch(req: Response) {
   const parsed = parse(await req.text());
   const results = parsed.querySelector("ol");
-  console.log(results);
+  console.log(parsed.innerHTML);
 
   if (
     !results ||
@@ -122,36 +122,39 @@ export const spaceBattlesRouter = router({
 
     let req = null;
     if (input.session === null)
-      req = await fetch(url, {
+      req = await fetch("https://forums.spacebattles.com", {
+        method: "POST",
+        referrer: url,
         headers: [
+          ["authority", "forums.spacebattles.com"],
+          ["path", "/search/search"],
+          ["scheme", "https"],
           [
             "accept",
             "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9",
           ],
           ["accept-encoding", "gzip, deflate, br"],
           ["accept-language", "en-US,en;q=0.9"],
-          ["cache-control", "max-age=0"],
+          // ["cache-control", "max-age=0"],
           [
             "cookie",
             "__gads=ID=abd70bf29679d654:T=1643190624:S=ALNI_Mb8fxRl_aj5UkA2kncOcLxh0jGDDw; cto_bundle=_s2EJV9QRmdVb3FtWTVBM0YlMkJsM3ltZjNhU2FBajF2dHlhWHdDTkN6MndlN1kxJTJCbW5YZEthWFNsT0hmWU8zSEltQTRnJTJCVjhhZmdOMXlqbG80YXN0cExQNkEwdVlZdWhPckRtVG5WUmR5U09sV3JRNEFwZUt5MCUyRlZLRkJhOXg2aHBBYU83empGTWtTNzFpc3NWYkZPTWg4VnExc1VYeHZOeEljdEZuRjNCSDFYdWJQZFpuTTM0ajVvWiUyQjQyelhUOEdHeGRZVk1UeWFzSHRHOWx0WHJVTW1KS2NvUSUzRCUzRA; cf_clearance=rWA_fGyucvAqRh7IuRxoMvcZtrFCdYQ_wSSZib3oqrE-1661744578-0-150; _pbjs_userid_consent_data=3524755945110770; __qca=P0-249217702-1671157176011; __gpi=UID=00000908d8dcb887:T=1670126958:RT=1672743521:S=ALNI_MYaTFAE7_qPdIyIt6tsY8coHpe36Q; _ga=GA1.2.1513995099.1568686015; _ga_F3CLTL2CJQ=GS1.1.1673389445.123.0.1673389448.0.0.0; xf_session=U45Linrs-vPRMG6_YS53voeAT6nxPKLL; xf_csrf=djQcqR6nLWL8-R-O",
           ],
-          [
-            "referer",
-            "https://forums.spacebattles.com/search?q=*&t=post&c[child_nodes]=1&c[in_threadmark_categories]=1&c[nodes][0]=18&c[threadmark_categories][0]=1&c[threadmark_categories][1]=16&c[threadmark_only]=1&g=1",
-          ],
-          ["if-modified-since", "Thu, 12 Jan 2023 18:03:05 GMT"],
-          ["sec-cha-ua", '"Not?A_Brand";v="8", "Chromium";v="108", "Google Chrome";v="108"'],
-          ["sec-cha-ua-mobile", "?0"],
-          ["sec-cha-ua-platform", '"macOS"'],
-          ["sec-fetch-dest", "document"],
-          ["sec-fetch-mode", "navigate"],
-          ["sec-fetch-site", "same-origin"],
-          ["sec-fetch-user", "?1"],
-          ["upgrade-insecure-requests", "1"],
-          [
-            "user-agent",
-            "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36",
-          ],
+          ["origin", "https://forums.spacebattles.com"],
+          ["referer", url],
+          // ["if-modified-since", "Thu, 12 Jan 2023 18:03:05 GMT"],
+          // ["sec-cha-ua", '"Not?A_Brand";v="8", "Chromium";v="108", "Google Chrome";v="108"'],
+          // ["sec-cha-ua-mobile", "?0"],
+          // ["sec-cha-ua-platform", '"macOS"'],
+          // ["sec-fetch-dest", "document"],
+          // ["sec-fetch-mode", "navigate"],
+          // ["sec-fetch-site", "same-origin"],
+          // ["sec-fetch-user", "?1"],
+          // ["upgrade-insecure-requests", "1"],
+          // [
+          //   "user-agent",
+          //   "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36",
+          // ],
         ],
       });
     // else req = session.get(url)
