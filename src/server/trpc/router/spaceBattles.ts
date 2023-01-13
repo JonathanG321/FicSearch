@@ -125,6 +125,7 @@ export const spaceBattlesRouter = router({
       req = await fetch("https://forums.spacebattles.com", {
         method: "POST",
         referrer: url,
+        redirect: "follow",
         headers: [
           ["authority", "forums.spacebattles.com"],
           ["path", "/search/search"],
