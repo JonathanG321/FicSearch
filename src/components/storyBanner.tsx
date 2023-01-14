@@ -44,11 +44,16 @@ function StoryBanner({
   return (
     <div className="m-4 rounded-md border">
       <div className="flex justify-between">
-        <Link href={link}>
-          <h3 className="font-bold">{title}</h3>
-        </Link>
+        <div className="flex">
+          <Link href={link}>
+            <h3 className="font-bold">{title}</h3>
+          </Link>
+          <h3 className="text-neutral-500">by: {author}</h3>
+        </div>
         <h3>{origin}</h3>
       </div>
+      <div className="flex"></div>
+      <p>{summary}</p>
     </div>
   );
 }
