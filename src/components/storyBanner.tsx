@@ -33,7 +33,7 @@ function StoryBanner({
   tags,
   title,
   words,
-  characters,
+  characters, // Optional
   complete,
   fandoms,
   hits,
@@ -41,6 +41,7 @@ function StoryBanner({
   relationships,
   warnings,
 }: StoryBanner) {
+  const completeText = complete === true ? "Complete" : complete === false ? "Incomplete" : undefined;
   return (
     <div className="m-4 rounded-md border">
       <div className="flex justify-between">
@@ -52,7 +53,19 @@ function StoryBanner({
         </div>
         <h3>{origin}</h3>
       </div>
-      <div className="flex"></div>
+      <div className="flex">
+        {fandoms && fandoms[0] && (
+          <>
+            <p className="mr-2">Fandoms:</p>
+            {fandoms.map((fandom) => (
+              <p key={fandom} className="mr-2 bg-cyan-300">
+                {fandom}
+              </p>
+            ))}
+          </>
+        )}
+      </div>
+      <div className="flex">{completeText && <p>{completeText}</p>}</div>
       <p>{summary}</p>
     </div>
   );
