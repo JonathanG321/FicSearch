@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 type StoryBanner = {
   origin: string;
   author: string;
@@ -39,7 +41,16 @@ function StoryBanner({
   relationships,
   warnings,
 }: StoryBanner) {
-  return <div></div>;
+  return (
+    <div className="m-4 rounded-md border">
+      <div className="flex justify-between">
+        <Link href={link}>
+          <h3 className="font-bold">{title}</h3>
+        </Link>
+        <h3>{origin}</h3>
+      </div>
+    </div>
+  );
 }
 
 export default StoryBanner;
