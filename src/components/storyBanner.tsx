@@ -77,6 +77,18 @@ function StoryBanner({
           </>
         )}
       </div>
+      <div className="flex">
+        {relationships && relationships[0] && (
+          <>
+            <p className="mr-2">Relationships:</p>
+            {relationships.map((relationship) => (
+              <p key={relationship} className="mr-2 bg-cyan-300">
+                {relationship}
+              </p>
+            ))}
+          </>
+        )}
+      </div>
       <div className="flex">{completeText && <p>{completeText}</p>}</div>
       <p>{summary}</p>
     </div>
