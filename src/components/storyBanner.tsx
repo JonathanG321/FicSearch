@@ -65,6 +65,18 @@ function StoryBanner({
           </>
         )}
       </div>
+      <div className="flex">
+        {characters && characters[0] && (
+          <>
+            <p className="mr-2">Characters:</p>
+            {characters.map((character) => (
+              <p key={character} className="mr-2 bg-cyan-300">
+                {character}
+              </p>
+            ))}
+          </>
+        )}
+      </div>
       <div className="flex">{completeText && <p>{completeText}</p>}</div>
       <p>{summary}</p>
     </div>
