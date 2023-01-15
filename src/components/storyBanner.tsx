@@ -33,7 +33,8 @@ function StoryBanner({
   tags,
   title,
   words,
-  characters, // Optional
+  // Optional
+  characters,
   complete,
   fandoms,
   hits,
@@ -112,6 +113,16 @@ function StoryBanner({
             ))}
           </>
         )}
+      </div>
+      <div className="flex">
+        {completeText && <p>{completeText}</p>}
+        <p>Words: {words}</p>
+        <p>Chapters: {chapterCount}</p>
+        <p>Comments: {comments}</p>
+        <p>Updated: {dateUpdated.toLocaleDateString()}</p>
+        <p>Published: {datePublished.toLocaleDateString()}</p>
+        {hits && <p>Hits: {hits}</p>}
+        {kudos && <p>Kudos: {kudos}</p>}
       </div>
       <p>{summary}</p>
     </div>
