@@ -66,6 +66,18 @@ function StoryBanner({
         )}
       </div>
       <div className="flex">
+        {tags && tags[0] && (
+          <>
+            <p className="mr-2">Tags:</p>
+            {tags.map((tag) => (
+              <p key={tag} className="mr-2 bg-cyan-300">
+                {tag}
+              </p>
+            ))}
+          </>
+        )}
+      </div>
+      <div className="flex">
         {characters && characters[0] && (
           <>
             <p className="mr-2">Characters:</p>
@@ -101,7 +113,6 @@ function StoryBanner({
           </>
         )}
       </div>
-      <div className="flex">{completeText && <p>{completeText}</p>}</div>
       <p>{summary}</p>
     </div>
   );
