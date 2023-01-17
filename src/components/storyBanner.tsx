@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-type StoryBanner = {
+export type StoryBannerType = {
   origin: string;
   author: string;
   link: string;
@@ -41,7 +41,7 @@ function StoryBanner({
   kudos,
   relationships,
   warnings,
-}: StoryBanner) {
+}: StoryBannerType) {
   const completeText = complete === true ? "Complete" : complete === false ? "Incomplete" : undefined;
   return (
     <div className="m-4 rounded-md border">

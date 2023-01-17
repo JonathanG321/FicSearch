@@ -3,11 +3,34 @@ import Head from "next/head";
 import { signIn, signOut, useSession } from "next-auth/react";
 
 import { trpc } from "../utils/trpc";
+import StoryBanner, { type StoryBannerType } from "../components/storyBanner";
 
 const Home: NextPage = () => {
   const hello = trpc.example.hello.useQuery({ text: "from tRPC" });
   const test = trpc.spaceBattles.search.useQuery({ keyWords: "hello" });
   // console.log(test.data);
+
+  const testStory: StoryBannerType = {
+    origin: "Space Battles",
+    author: "Author",
+    chapterCount: 10,
+    comments: 10,
+    datePublished: new Date(),
+    dateUpdated: new Date(),
+    link: "https://www.google.com",
+    summary:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+    tags: ["tag1", "tag2", "tag3", "tag4"],
+    title: "Title",
+    words: 1000000,
+    // Optional
+    characters: ["character1", "character2", "character3", "character4"],
+    complete: true,
+    fandoms: ["fandom1", "fandom2", "fandom3", "fandom4"],
+    hits: 5000,
+    kudos: 1000,
+    warnings: ["warning1", "warning2", "warning3", "warning4"],
+  };
 
   return (
     <>
@@ -19,6 +42,7 @@ const Home: NextPage = () => {
       <main className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-[#2e026d] to-[#15162c]">
         <div className="container flex flex-col items-center justify-center gap-12 px-4 py-16 ">
           <div className="flex flex-col items-center gap-2">
+            <StoryBanner {...testStory} />
             <p className="text-2xl text-white">
               {hello.data ? hello.data.greeting : "Loading tRPC query..."}
             </p>
