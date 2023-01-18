@@ -114,15 +114,21 @@ function StoryBanner({
           </div>
         </>
       )}
+      {completeText && (
+        <div className="mt-4 flex">
+          <p className={["rounded px-2", complete ? "bg-lime-500" : "bg-red-600"].join(" ")}>
+            {completeText}
+          </p>
+        </div>
+      )}
       <div className="my-4 flex flex-wrap overflow-x-visible">
-        {completeText && <p className="mr-4">{completeText}</p>}
-        <p className="mr-4">Words: {words}</p>
-        <p className="mr-4">Chapters: {chapterCount}</p>
-        <p className="mr-4">Comments: {comments}</p>
+        <p className="mr-4">Words: {words.toLocaleString()}</p>
+        <p className="mr-4">Chapters: {chapterCount.toLocaleString()}</p>
+        <p className="mr-4">Comments: {comments.toLocaleString()}</p>
         <p className="mr-4">Updated: {dateUpdated.toLocaleDateString()}</p>
         <p className="mr-4">Published: {datePublished.toLocaleDateString()}</p>
-        {hits && <p className="mr-4">Hits: {hits}</p>}
-        {kudos && <p className="mr-4">Kudos: {kudos}</p>}
+        {hits && <p className="mr-4">Hits: {hits.toLocaleString()}</p>}
+        {kudos && <p className="mr-4">Kudos: {kudos.toLocaleString()}</p>}
       </div>
       <p>{summary}</p>
     </div>
