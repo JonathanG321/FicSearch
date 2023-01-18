@@ -54,75 +54,75 @@ function StoryBanner({
         </div>
         <h3>{origin}</h3>
       </div>
-      <div className="my-2 flex">
-        {fandoms && fandoms[0] && (
-          <>
+      {fandoms && fandoms[0] && (
+        <>
+          <div className="my-2 flex">
             <p className="mr-2">Fandoms:</p>
             {fandoms.map((fandom) => (
-              <p key={fandom} className="mr-2 rounded bg-cyan-300 px-2">
+              <p key={fandom} className="mr-2 rounded bg-cyan-600 px-2">
                 {fandom}
               </p>
             ))}
-          </>
-        )}
-      </div>
-      <div className="my-2 flex">
-        {tags && tags[0] && (
-          <>
+          </div>
+        </>
+      )}
+      {tags && tags[0] && (
+        <>
+          <div className="my-2 flex">
             <p className="mr-2">Tags:</p>
             {tags.map((tag) => (
-              <p key={tag} className="mr-2 rounded bg-cyan-300 px-2">
+              <p key={tag} className="mr-2 rounded bg-cyan-600 px-2">
                 {tag}
               </p>
             ))}
-          </>
-        )}
-      </div>
-      <div className="my-2 flex">
-        {characters && characters[0] && (
-          <>
+          </div>
+        </>
+      )}
+      {characters && characters[0] && (
+        <>
+          <div className="my-2 flex">
             <p className="mr-2">Characters:</p>
             {characters.map((character) => (
-              <p key={character} className="mr-2 rounded bg-cyan-300 px-2">
+              <p key={character} className="mr-2 rounded bg-cyan-600 px-2">
                 {character}
               </p>
             ))}
-          </>
-        )}
-      </div>
-      <div className="my-2 flex">
-        {relationships && relationships[0] && (
-          <>
+          </div>
+        </>
+      )}
+      {relationships && relationships[0] && (
+        <>
+          <div className="my-2 flex">
             <p className="mr-2">Relationships:</p>
             {relationships.map((relationship) => (
-              <p key={relationship} className="mr-2 rounded bg-cyan-300 px-2">
+              <p key={relationship} className="mr-2 rounded bg-cyan-600 px-2">
                 {relationship}
               </p>
             ))}
-          </>
-        )}
-      </div>
-      <div className="my-2 flex">
-        {warnings && warnings[0] && (
-          <>
+          </div>
+        </>
+      )}
+      {warnings && warnings[0] && (
+        <>
+          <div className="my-2 flex">
             <p className="mr-2">Warnings:</p>
             {warnings.map((warning) => (
-              <p key={warning} className="mr-2 rounded bg-cyan-300 px-2">
+              <p key={warning} className="mr-2 rounded bg-cyan-600 px-2">
                 {warning}
               </p>
             ))}
-          </>
-        )}
-      </div>
-      <div className="my-2 flex">
-        {completeText && <p>{completeText}</p>}
-        <p>Words: {words}</p>
-        <p>Chapters: {chapterCount}</p>
-        <p>Comments: {comments}</p>
-        <p>Updated: {dateUpdated.toLocaleDateString()}</p>
-        <p>Published: {datePublished.toLocaleDateString()}</p>
-        {hits && <p>Hits: {hits}</p>}
-        {kudos && <p>Kudos: {kudos}</p>}
+          </div>
+        </>
+      )}
+      <div className="my-4 flex flex-wrap overflow-x-visible">
+        {completeText && <p className="mr-4">{completeText}</p>}
+        <p className="mr-4">Words: {words}</p>
+        <p className="mr-4">Chapters: {chapterCount}</p>
+        <p className="mr-4">Comments: {comments}</p>
+        <p className="mr-4">Updated: {dateUpdated.toLocaleDateString()}</p>
+        <p className="mr-4">Published: {datePublished.toLocaleDateString()}</p>
+        {hits && <p className="mr-4">Hits: {hits}</p>}
+        {kudos && <p className="mr-4">Kudos: {kudos}</p>}
       </div>
       <p>{summary}</p>
     </div>
