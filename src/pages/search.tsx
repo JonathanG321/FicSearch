@@ -1,41 +1,6 @@
 import { type NextPage } from "next";
 import Head from "next/head";
-
-type SpacebattlesSearch = {
-  keyWords?: string;
-  tags?: string[];
-  excludeTags?: string[];
-  newerThan?: Date;
-  olderThan?: Date;
-  users?: string[];
-  wordCountLower?: string;
-  wordCountUpper?: string;
-  replies?: string;
-  order?: "date" | "relevance" | "words" | "last_update" | "replies";
-};
-
-type AO3Search = {
-  anyField: string;
-  title: string;
-  author: string;
-  singleChapter: boolean;
-  wordCount: number[];
-  language: string;
-  fandoms: string[];
-  rating: number[];
-  hits: number[];
-  kudos: number[];
-  crossovers: boolean;
-  bookmarks: number[];
-  comments: number[];
-  completionStatus: boolean;
-  sortColumn: string;
-  sortDirection: string;
-  revisedAt: string;
-  characters: string;
-  relationships: string;
-  tags: string[];
-};
+import SearchForm from "../components/searchForm";
 
 const Search: NextPage = () => {
   return (
@@ -47,7 +12,9 @@ const Search: NextPage = () => {
       </Head>
       <main className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-[#2e026d] to-[#15162c]">
         <div className="container flex flex-col items-center justify-center gap-12 px-4 py-16 ">
-          <div className="flex flex-col items-center gap-2"></div>
+          <div className="flex flex-col items-center gap-2">
+            <SearchForm test="" />
+          </div>
         </div>
       </main>
     </>
