@@ -1,8 +1,8 @@
 import { type ChangeEventHandler } from "react";
 
-export type InputType = { value: string; onChange: ChangeEventHandler<HTMLInputElement>; fieldName: string };
+export type InputType = { value?: string; onChange: ChangeEventHandler<HTMLInputElement>; fieldName: string };
 
-function Input({ value, onChange, fieldName }: InputType) {
+function Input({ value = "", onChange, fieldName }: InputType) {
   return (
     <div>
       <label htmlFor={fieldName}>{fieldName}</label>
