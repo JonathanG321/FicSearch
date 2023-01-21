@@ -5,10 +5,18 @@ import { useState } from "react";
 export type SearchFormType = { test: string };
 
 function SearchForm({}: SearchFormType) {
-  const [] = useState<AO3Search | SpaceBattlesSearch>({ anyField: "" });
+  const [AO3Data, setAO3Data] = useState<AO3Search>({});
+  const [SpaceBattlesData, setSpaceBattlesData] = useState<SpaceBattlesSearch>({});
   return (
     <div>
-      <Input value="test" onChange={() => undefined} />
+      <h3>AO3 Search</h3>
+      <div className="rounded border p-4">
+        <Input
+          fieldName="anyField"
+          value="test"
+          onChange={(e) => setAO3Data({ ...AO3Data, anyField: e.currentTarget.value })}
+        />
+      </div>
     </div>
   );
 }
