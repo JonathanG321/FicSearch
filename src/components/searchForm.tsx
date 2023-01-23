@@ -20,6 +20,16 @@ function SearchForm({}: SearchFormType) {
             setSpaceBattlesData({ ...SpaceBattlesData, keyWords: e.currentTarget.value });
           }}
         />
+        <Input
+          fieldName="tags"
+          fieldText="Tags"
+          type="select"
+          value={AO3Data.tags?.join(",") || SpaceBattlesData.tags?.join(",")}
+          onChange={(e) => {
+            setAO3Data({ ...AO3Data, tags: e.currentTarget.value.split(",") });
+            setSpaceBattlesData({ ...SpaceBattlesData, tags: e.currentTarget.value.split(",") });
+          }}
+        />
       </div>
     </div>
   );
