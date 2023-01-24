@@ -10,7 +10,7 @@ function SearchForm({}: SearchFormType) {
   return (
     <div className="text-white">
       <h2 className="mb-2 text-2xl">Universal</h2>
-      <div className="mb-4 rounded border p-4">
+      <div className="mb-4 flex rounded border p-4">
         <Input
           fieldName="keyWords"
           fieldText="Key Words"
@@ -23,11 +23,13 @@ function SearchForm({}: SearchFormType) {
         <Input
           fieldName="tags"
           fieldText="Tags"
-          type="select"
-          value={AO3Data.tags?.join(",") || SpaceBattlesData.tags?.join(",")}
+          value={AO3Data.tags?.join(", ") || SpaceBattlesData.tags?.join(", ")}
           onChange={(e) => {
-            setAO3Data({ ...AO3Data, tags: e.currentTarget.value.split(",") });
-            setSpaceBattlesData({ ...SpaceBattlesData, tags: e.currentTarget.value.split(",") });
+            setAO3Data({ ...AO3Data, tags: e.currentTarget.value.split(",").map((a) => a.trim()) });
+            setSpaceBattlesData({
+              ...SpaceBattlesData,
+              tags: e.currentTarget.value.split(",").map((a) => a.trim()),
+            });
           }}
         />
       </div>
