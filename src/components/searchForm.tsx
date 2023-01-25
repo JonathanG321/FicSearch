@@ -33,6 +33,26 @@ function SearchForm({}: SearchFormType) {
           }}
         />
       </div>
+      <h2 className="mb-2 text-2xl">Space Battles</h2>
+      <div className="mb-4 flex rounded border p-4">
+        <Input
+          fieldName="excludeTags"
+          fieldText="Exclude Tags"
+          value={SpaceBattlesData.excludeTags?.join(", ")}
+          onChange={(e) =>
+            setSpaceBattlesData({
+              ...SpaceBattlesData,
+              excludeTags: e.currentTarget.value.split(",").map((a) => a.trim()),
+            })
+          }
+        />
+        <Input
+          fieldName="replies"
+          fieldText="Replies"
+          value={SpaceBattlesData.replies}
+          onChange={(e) => setSpaceBattlesData({ ...SpaceBattlesData, replies: e.currentTarget.value })}
+        />
+      </div>
     </div>
   );
 }
