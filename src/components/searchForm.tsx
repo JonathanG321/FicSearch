@@ -52,6 +52,17 @@ function SearchForm({}: SearchFormType) {
           value={SpaceBattlesData.replies}
           onChange={(e) => setSpaceBattlesData({ ...SpaceBattlesData, replies: e.currentTarget.value })}
         />
+        <Input
+          fieldName="users"
+          fieldText="Users"
+          value={SpaceBattlesData.users?.join(", ")}
+          onChange={(e) =>
+            setSpaceBattlesData({
+              ...SpaceBattlesData,
+              users: e.currentTarget.value.split(",").map((a) => a.trim()),
+            })
+          }
+        />
       </div>
     </div>
   );
