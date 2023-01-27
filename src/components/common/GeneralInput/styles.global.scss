@@ -1,0 +1,93 @@
+.GeneralInput {
+  font-size: 16px;
+  .label {
+    white-space: nowrap;
+    font-size: 16px;
+  }
+  .equi-input {
+    &:focus {
+      border-width: 4px;
+    }
+  }
+  &.equi-input-error {
+    .equi-input {
+      border-color: rgb(220, 53, 69);
+    }
+    p.error {
+      margin: 0;
+      text-align: right;
+    }
+    .SpecialInput {
+      label {
+        color: rgb(220, 53, 69);
+      }
+    }
+  }
+  .EquiRadioCheck {
+    margin-right: 15px;
+    input {
+      margin: 0;
+      padding: 0;
+    }
+
+    .label {
+      margin-left: 0;
+      padding-left: 5px;
+    }
+
+    input,
+    label {
+      cursor: pointer;
+    }
+  }
+  .SpecialInput {
+    input {
+      margin: 0;
+    }
+    .label {
+      margin-left: 0;
+      padding-left: 5px;
+    }
+    label,
+    input {
+      cursor: pointer;
+    }
+    .equi-file {
+      font-family: Raleway;
+      font-size: 16px;
+      &:focus {
+        outline: none;
+      }
+    }
+    .equi-checkbox,
+    .equi-radio {
+      width: 20px;
+      height: 20px;
+      margin: 0px;
+    }
+  }
+  .equi-input {
+    width: 100%;
+    border: 2px solid rgb(111, 143, 168);
+    background-color: white;
+    border-radius: 0px;
+    box-shadow: grey 2px 2px 4px 0px;
+    font-family: Raleway;
+    letter-spacing: 1px;
+    word-spacing: 1px;
+    padding: 0px 10px;
+    height: 38px;
+    font-size: 16px;
+    &:focus {
+      border-radius: 0px;
+      outline: none;
+    }
+    option:disabled {
+      color: rgb(117, 117, 117);
+    }
+  }
+  .title-label {
+    margin: 0;
+    margin-right: 20px;
+  }
+}
