@@ -64,6 +64,20 @@ function SearchForm({}: SearchFormType) {
           }
         />
       </div>
+      <h2 className="mb-2 text-2xl">Archive of Our Own</h2>
+      <div className="mb-4 flex rounded border p-4">
+        <Input
+          fieldName="language"
+          fieldText="Language"
+          value={AO3Data.language}
+          onChange={(e) =>
+            setAO3Data({
+              ...SpaceBattlesData,
+              language: e.currentTarget.value,
+            })
+          }
+        />
+      </div>
     </div>
   );
 }
