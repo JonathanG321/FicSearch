@@ -115,7 +115,7 @@ function SpecialInput(props: Props<HTMLInputElement>): ReactElement {
   );
 }
 
-function EquiSelect(props: Props<HTMLSelectElement>): ReactElement {
+function GenSelect(props: Props<HTMLSelectElement>): ReactElement {
   const {
     options,
     formLabel,
@@ -157,16 +157,16 @@ function EquiSelect(props: Props<HTMLSelectElement>): ReactElement {
   );
 }
 
-function EquiRadio(props: Props<HTMLInputElement>): ReactElement {
+function GenRadio(props: Props<HTMLInputElement>): ReactElement {
   const { options, formLabel, onChange, type, name, value: baseValue, ...inputProps } = props;
   const _onChange = onChange as OnChange;
   return (
     <div className="flex">
       <h3 className="title-label header no-flex">
-        <strong>{formLabel} </strong>
+        <strong>{formLabel}</strong>
       </h3>
       {options?.map(({ displayName, value }) => (
-        <div key={value} className="center EquiRadioCheck no-flex">
+        <div key={value} className="center GenRadioCheck no-flex">
           <div className="left max-width align-center flex justify-center">
             <input
               {...inputProps}
@@ -174,7 +174,7 @@ function EquiRadio(props: Props<HTMLInputElement>): ReactElement {
               type={type}
               id={`radio-${name}-${value}`}
               value={value}
-              className={classnames(`equi-${type}`)}
+              className={classnames(`gen-${type}`)}
               checked={value === baseValue}
               onChange={type === "checkbox" ? checkedOnChange(_onChange) : textOnChange(_onChange)}
             />
@@ -188,6 +188,7 @@ function EquiRadio(props: Props<HTMLInputElement>): ReactElement {
   );
 }
 
+// eslint-disable-next-line react/display-name
 const GeneralInputChild = React.forwardRef(
   <InputElement extends HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>(
     props: Props<InputElement>,
@@ -208,7 +209,7 @@ const GeneralInputChild = React.forwardRef(
     const _onChange = onChange as OnChange;
     switch (type) {
       case "select":
-        return <EquiSelect {...selectProps} />;
+        return <GenSelect {...selectProps} />;
       case "textarea":
         return (
           <textarea
@@ -219,7 +220,7 @@ const GeneralInputChild = React.forwardRef(
           />
         );
       case "radio":
-        return <EquiRadio {...specialInputProps} />;
+        return <GenRadio {...specialInputProps} />;
       case "checkbox":
       case "range":
       case "file":
@@ -270,7 +271,7 @@ function GeneralInput<InputElement extends HTMLInputElement | HTMLTextAreaElemen
   return (
     <div
       className={classnames("GeneralInput", className, {
-        "equi-input-error": error,
+        "gen-input-error": error,
         disabled,
         "max-width": !noMaxWidth,
       })}
@@ -278,7 +279,7 @@ function GeneralInput<InputElement extends HTMLInputElement | HTMLTextAreaElemen
       <GeneralInputChild
         {...restProps}
         disabled={disabled}
-        underlyingClassName={classnames("equi-input", underlyingClassName)}
+        underlyingClassName={classnames("gen-input", underlyingClassName)}
         ref={ref}
       />
       {error && <div className="error">{error}</div>}
