@@ -4,13 +4,13 @@
     white-space: nowrap;
     font-size: 16px;
   }
-  .equi-input {
+  .gen-input {
     &:focus {
       border-width: 4px;
     }
   }
-  &.equi-input-error {
-    .equi-input {
+  &.gen-input-error {
+    .gen-input {
       border-color: rgb(220, 53, 69);
     }
     p.error {
@@ -23,7 +23,7 @@
       }
     }
   }
-  .EquiRadioCheck {
+  .GenRadioCheck {
     margin-right: 15px;
     input {
       margin: 0;
@@ -52,21 +52,21 @@
     input {
       cursor: pointer;
     }
-    .equi-file {
+    .gen-file {
       font-family: Raleway;
       font-size: 16px;
       &:focus {
         outline: none;
       }
     }
-    .equi-checkbox,
-    .equi-radio {
+    .gen-checkbox,
+    .gen-radio {
       width: 20px;
       height: 20px;
       margin: 0px;
     }
   }
-  .equi-input {
+  .gen-input {
     width: 100%;
     border: 2px solid rgb(111, 143, 168);
     background-color: white;
