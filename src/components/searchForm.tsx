@@ -1,6 +1,7 @@
 import Input from "./common/input";
 import { type AO3Search, type SpaceBattlesSearch } from "../types/search";
 import { useState } from "react";
+import GeneralInput from "./common/GeneralInput";
 
 export type SearchFormType = { test: string };
 
@@ -66,14 +67,16 @@ function SearchForm({}: SearchFormType) {
       </div>
       <h2 className="mb-2 text-2xl">Archive of Our Own</h2>
       <div className="mb-4 flex rounded border p-4">
-        <Input
-          fieldName="language"
-          fieldText="Language"
+        <GeneralInput
+          formLabel="language"
+          type="string"
+          // fieldName="language"
+          // fieldText="Language"
           value={AO3Data.language}
-          onChange={(e) =>
+          onChange={(value) =>
             setAO3Data({
               ...SpaceBattlesData,
-              language: e.currentTarget.value,
+              language: value as string,
             })
           }
         />
