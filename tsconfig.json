@@ -16,6 +16,6 @@
     "incremental": true,
     "noUncheckedIndexedAccess": true
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "**/*.cjs", "**/*.mjs", "./declarations.d.ts", "**/*.css", "**/*.scss" ],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "**/*.cjs", "**/*.mjs", "./declarations.d.ts", "**/*.css", "**/*.scss", "src" ],
   "exclude": ["node_modules"]
 }
