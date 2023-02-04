@@ -1,6 +1,5 @@
 import React, { type ChangeEvent, type ReactElement } from "react";
 import classnames from "classnames";
-import "./styles.module.scss";
 
 export interface Option {
   displayName: string;
