@@ -8,11 +8,6 @@
     white-space: nowrap;
     font-size: 16px;
   }
-  .gen-input {
-    &:focus {
-      border-width: 4px;
-    }
-  }
   &.gen-input-error {
     .gen-input {
       border-color: rgb(220, 53, 69);
@@ -72,19 +67,18 @@
   }
   .gen-input {
     width: 100%;
-    border: 2px solid rgb(111, 143, 168);
-    background-color: white;
-    border-radius: 0px;
+    border: 2px solid rgb(85, 18, 156);
+    background-color: rgb(28, 0, 58);
+    border-radius: 5px;
     box-shadow: grey 2px 2px 4px 0px;
-    font-family: Raleway;
     letter-spacing: 1px;
     word-spacing: 1px;
     padding: 0px 10px;
     height: 38px;
     font-size: 16px;
     &:focus {
-      border-radius: 0px;
       outline: none;
+      border-color: rgb(129, 33, 231);
     }
     option:disabled {
       color: rgb(117, 117, 117);

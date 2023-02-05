@@ -68,10 +68,8 @@ function SearchForm({}: SearchFormType) {
       <h2 className="mb-2 text-2xl">Archive of Our Own</h2>
       <div className="mb-4 flex rounded border p-4">
         <GeneralInput
-          formLabel="language"
-          type="string"
-          // fieldName="language"
-          // fieldText="Language"
+          formLabel="Language"
+          name="language"
           value={AO3Data.language}
           onChange={(value) =>
             setAO3Data({
