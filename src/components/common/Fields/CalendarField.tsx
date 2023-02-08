@@ -1,10 +1,9 @@
-/* eslint-disable react/function-component-definition */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import classNames from "classnames";
 import { Calendar } from "primereact/calendar";
-import { CommonFormFunctions } from "../../../types";
+import { type CommonFormFunctions } from "../../../types/forms";
 import { isFormFieldValid } from "../../../utils/formUtils";
 import FormGroup from "../FormGroup";
-import UnsavedFieldWarning from "../UnsavedFieldWarning";
 
 interface Props<T> extends CommonFormFunctions<T> {
   fieldPath: Extract<keyof T, string>;
@@ -19,7 +18,6 @@ function CalendarField<T>({
   disabled = false,
   onChange,
   getFieldMeta,
-  unSavedFields,
 }: Props<T>) {
   const { error, touched, value } = getFieldMeta(fieldPath);
   return (
@@ -48,7 +46,6 @@ function CalendarField<T>({
               onChange(e, fieldPath);
             }}
           />
-          {unSavedFields.includes(fieldPath) && <UnsavedFieldWarning fieldPath={fieldPath} />}
         </div>
       </FormGroup>
     </div>

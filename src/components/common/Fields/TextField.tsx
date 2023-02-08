@@ -1,18 +1,16 @@
-/* eslint-disable react/function-component-definition */
-import React, { useEffect, useState } from 'react';
-import classNames from 'classnames';
-import { isEqual } from 'lodash';
-import { InputText } from 'primereact/inputtext';
-import { CommonFormFunctions } from '../../../types';
-import { isFormFieldValid } from '../../../utils/formUtils';
-import FormGroup from '../FormGroup';
-import UnsavedFieldWarning from '../UnsavedFieldWarning';
+import React, { useEffect, useState } from "react";
+import classNames from "classnames";
+import { isEqual } from "lodash";
+import { InputText } from "primereact/inputtext";
+import { type CommonFormFunctions } from "../../../types/forms";
+import { isFormFieldValid } from "../../../utils/formUtils";
+import FormGroup from "../FormGroup";
 
 interface Props<T> extends CommonFormFunctions<T> {
   fieldPath: Extract<keyof T, string>;
   label?: string;
   placeholder?: string;
-  iconLocation?: 'left' | 'right';
+  iconLocation?: "left" | "right";
   icon?: string;
 }
 
@@ -26,7 +24,6 @@ function TextField<T>({
   handleFocus,
   onChange,
   getFieldMeta,
-  unSavedFields,
 }: Props<T>) {
   const { error: fieldError, touched: fieldTouched, value: fieldValue } = getFieldMeta(fieldPath);
 
@@ -47,30 +44,28 @@ function TextField<T>({
   };
 
   return (
-    <div className={classNames('mr-4 mb-3 pt-2 last:mr-0 w-full')}>
+    <div className={classNames("mr-4 mb-3 w-full pt-2 last:mr-0")}>
       <FormGroup error={touched ? error : undefined} label={label}>
         <div
-          className={classNames('w-full flex items-center', {
-            'p-input-icon-left': iconLocation === 'left',
-            'p-input-icon-right': iconLocation === 'right',
+          className={classNames("flex w-full items-center", {
+            "p-input-icon-left": iconLocation === "left",
+            "p-input-icon-right": iconLocation === "right",
           })}
         >
-          {!!icon && !!iconLocation && <i className={classNames('pi', icon)} />}
+          {!!icon && !!iconLocation && <i className={classNames("pi", icon)} />}
           <InputText
             id={fieldPath}
             name={fieldPath}
-            value={value || ''}
+            value={value || ""}
             placeholder={placeholder}
             onFocus={handleFocus}
             disabled={disabled}
-            className={classNames('text-sm w-full', {
-              'p-invalid': isFormFieldValid(touched, error),
-              'pl-8': !!icon && !!iconLocation,
-              'border-orange-300': unSavedFields.includes(fieldPath),
+            className={classNames("w-full text-sm", {
+              "p-invalid": isFormFieldValid(touched, error),
+              "pl-8": !!icon && !!iconLocation,
             })}
             onChange={handleChange}
           />
-          {unSavedFields.includes(fieldPath) && <UnsavedFieldWarning fieldPath={fieldPath} />}
         </div>
       </FormGroup>
     </div>

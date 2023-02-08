@@ -1,10 +1,8 @@
-/* eslint-disable react/function-component-definition */
-import classNames from 'classnames';
-import { RadioButton } from 'primereact/radiobutton';
-import { CommonFormFunctions } from '../../../types';
-import { isFormFieldValid } from '../../../utils/formUtils';
-import FormGroup from '../FormGroup';
-import UnsavedFieldWarning from '../UnsavedFieldWarning';
+import classNames from "classnames";
+import { RadioButton } from "primereact/radiobutton";
+import { type CommonFormFunctions } from "../../../types/forms";
+import { isFormFieldValid } from "../../../utils/formUtils";
+import FormGroup from "../FormGroup";
 
 interface Props<T> extends CommonFormFunctions<T> {
   fieldPath: Extract<keyof T, string>;
@@ -21,21 +19,20 @@ function RadioField<T>({
   disabled = false,
   onChange,
   getFieldMeta,
-  unSavedFields,
 }: Props<T>) {
   const { error, touched, value } = getFieldMeta(fieldPath);
 
   return (
-    <div className={classNames('mr-4 mb-3 pt-2 last:mr-0 w-full')}>
+    <div className={classNames("mr-4 mb-3 w-full pt-2 last:mr-0")}>
       <FormGroup error={touched ? error : undefined} label={label}>
         <div className={classNames({ flex: !vertical })}>
           {options.map((option) => (
             <div
               key={option.label}
-              className={classNames('first:ml-0 relative', {
-                'ml-0 mb-2 last:mb-0': vertical,
-                'ml-8': !vertical,
-                'hover:cursor-default': disabled,
+              className={classNames("relative first:ml-0", {
+                "ml-0 mb-2 last:mb-0": vertical,
+                "ml-8": !vertical,
+                "hover:cursor-default": disabled,
               })}
             >
               <RadioButton
@@ -44,23 +41,18 @@ function RadioField<T>({
                 value={option.value}
                 checked={option.value === value}
                 disabled={disabled}
-                className={classNames('text-sm', {
-                  'p-invalid': isFormFieldValid(touched, error),
-                  'hover:cursor-default': disabled,
+                className={classNames("text-sm", {
+                  "p-invalid": isFormFieldValid(touched, error),
+                  "hover:cursor-default": disabled,
                 })}
                 onChange={(e) => onChange(e, fieldPath)}
               />
               <label
-                className={classNames('ml-2', { 'p-error': isFormFieldValid(touched, error) })}
+                className={classNames("ml-2", { "p-error": isFormFieldValid(touched, error) })}
                 htmlFor={fieldPath}
               >
                 {option.label}
               </label>
-              {unSavedFields.includes(fieldPath) && (
-                <div className="inline-block ml-8 absolute -bottom-0.5">
-                  <UnsavedFieldWarning fieldPath={`${fieldPath}-${option.label}`} />
-                </div>
-              )}
             </div>
           ))}
         </div>

@@ -1,19 +1,18 @@
 /* eslint-disable react/function-component-definition */
-import classNames from 'classnames';
-import { Checkbox } from 'primereact/checkbox';
-import { CommonFormFunctions } from '../../../types';
-import { isFormFieldValid } from '../../../utils/formUtils';
-import UnsavedFieldWarning from '../UnsavedFieldWarning';
+import classNames from "classnames";
+import { Checkbox } from "primereact/checkbox";
+import { type CommonFormFunctions } from "../../../types/forms";
+import { isFormFieldValid } from "../../../utils/formUtils";
 
 interface Props<T> extends CommonFormFunctions<T> {
   fieldPath: Extract<keyof T, string>;
   label?: string;
 }
 
-function CheckboxField<T>({ fieldPath, unSavedFields, label, onChange, getFieldMeta, disabled = false }: Props<T>) {
+function CheckboxField<T>({ fieldPath, label, onChange, getFieldMeta, disabled = false }: Props<T>) {
   const { error, touched, value } = getFieldMeta(fieldPath);
   return (
-    <div className={classNames('field-checkbox my-4 relative', { 'hover:cursor-default': disabled })}>
+    <div className={classNames("field-checkbox relative my-4", { "hover:cursor-default": disabled })}>
       <Checkbox
         inputId={fieldPath}
         name={fieldPath}
@@ -21,25 +20,24 @@ function CheckboxField<T>({ fieldPath, unSavedFields, label, onChange, getFieldM
         disabled={disabled}
         onChange={(e) =>
           onChange(
-            { target: { name: e.target.name, value: e.checked } /* passing through e directly does not work */ },
-            fieldPath,
+            {
+              target: {
+                name: e.target.name,
+                value: e.checked,
+              } /* passing through e directly does not work */,
+            },
+            fieldPath
           )
         }
-        className={classNames('mr-2', {
-          'p-invalid': isFormFieldValid(touched, error),
-          'hover:cursor-default': disabled,
-          'border-orange-300': unSavedFields.includes(fieldPath),
+        className={classNames("mr-2", {
+          "p-invalid": isFormFieldValid(touched, error),
+          "hover:cursor-default": disabled,
         })}
       />
-      <label htmlFor={fieldPath} className={classNames({ 'p-error': isFormFieldValid(touched, error) })}>
+      <label htmlFor={fieldPath} className={classNames({ "p-error": isFormFieldValid(touched, error) })}>
         {label}
       </label>
-      {unSavedFields.includes(fieldPath) && (
-        <div className="inline-block ml-10 absolute -bottom-0.5">
-          <UnsavedFieldWarning fieldPath={fieldPath} />
-        </div>
-      )}
-      {error && touched && <small className="h-0 p-error">{error}</small>}
+      {error && touched && <small className="p-error h-0">{error}</small>}
     </div>
   );
 }

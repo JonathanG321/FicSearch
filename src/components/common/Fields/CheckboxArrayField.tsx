@@ -1,9 +1,7 @@
-/* eslint-disable react/function-component-definition */
-import classNames from 'classnames';
-import { Checkbox, CheckboxChangeParams } from 'primereact/checkbox';
-import { CommonFormFunctions } from '../../../types';
-import { isFormFieldValid } from '../../../utils/formUtils';
-import UnsavedFieldWarning from '../UnsavedFieldWarning';
+import classNames from "classnames";
+import { Checkbox, type CheckboxChangeEvent } from "primereact/checkbox";
+import { type CommonFormFunctions } from "../../../types/forms";
+import { isFormFieldValid } from "../../../utils/formUtils";
 
 interface Props<T> extends CommonFormFunctions<T> {
   fieldPath: Extract<keyof T, string>;
@@ -18,15 +16,14 @@ function CheckboxArrayField<T>({
   disabled = false,
   vertical,
   options,
-  unSavedFields,
 }: Props<T>) {
   const { error, touched, value } = getFieldMeta(fieldPath);
 
-  function isCheckedOnEvent(e: CheckboxChangeParams) {
+  function isCheckedOnEvent(e: CheckboxChangeEvent) {
     return !!e.checked;
   }
 
-  function handleChange(e: CheckboxChangeParams, option: { label: string; value: string }) {
+  function handleChange(e: CheckboxChangeEvent, option: { label: string; value: string }) {
     let newValue: string[] = value;
     if (isCheckedOnEvent(e)) {
       newValue = newValue.concat([option.value]);
@@ -40,14 +37,14 @@ function CheckboxArrayField<T>({
 
   return (
     <div className={classNames({ flex: !vertical })}>
-      {error && touched && <small className="h-0 p-error">{error}</small>}
+      {error && touched && <small className="p-error h-0">{error}</small>}
       {options.map((option, i) =>
-        option.value !== '' ? (
+        option.value !== "" ? (
           <div
             key={option.label}
-            className={classNames('field-checkbox my-4', {
-              'first:mt-0 ml-0 mb-2 last:mb-0': vertical,
-              'hover:cursor-default': disabled,
+            className={classNames("field-checkbox my-4", {
+              "ml-0 mb-2 first:mt-0 last:mb-0": vertical,
+              "hover:cursor-default": disabled,
             })}
           >
             <Checkbox
@@ -56,26 +53,21 @@ function CheckboxArrayField<T>({
               checked={value.includes(option.value)}
               onChange={(e) => handleChange(e, option)}
               disabled={disabled}
-              className={classNames('mr-2', {
-                'p-invalid': isFormFieldValid(touched, error),
-                'hover:cursor-default': disabled,
+              className={classNames("mr-2", {
+                "p-invalid": isFormFieldValid(touched, error),
+                "hover:cursor-default": disabled,
               })}
             />
-            <div className="inline relative">
+            <div className="relative inline">
               <label
                 htmlFor={`${fieldPath}[${i}]`}
-                className={classNames({ 'p-error': isFormFieldValid(touched, error) })}
+                className={classNames({ "p-error": isFormFieldValid(touched, error) })}
               >
                 {option.label}
               </label>
-              {unSavedFields.includes(fieldPath) && (
-                <div className="inline-block ml-10 absolute -bottom-1">
-                  <UnsavedFieldWarning fieldPath={`${fieldPath}-${i}`} />
-                </div>
-              )}
             </div>
           </div>
-        ) : undefined,
+        ) : undefined
       )}
     </div>
   );

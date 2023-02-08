@@ -1,10 +1,9 @@
-/* eslint-disable react/function-component-definition */
-import classNames from 'classnames';
-import { MultiSelect } from 'primereact/multiselect';
-import { CommonFormFunctions } from '../../../types';
-import { isFormFieldValid } from '../../../utils/formUtils';
-import FormGroup from '../FormGroup';
-import UnsavedFieldWarning from '../UnsavedFieldWarning';
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import classNames from "classnames";
+import { MultiSelect } from "primereact/multiselect";
+import { type CommonFormFunctions } from "../../../types/forms";
+import { isFormFieldValid } from "../../../utils/formUtils";
+import FormGroup from "../FormGroup";
 
 interface Props<T> extends CommonFormFunctions<T> {
   fieldPath: Extract<keyof T, string>;
@@ -19,7 +18,6 @@ function MultiSelectField<T>({
   label,
   options,
   placeholder,
-  unSavedFields,
   onChange,
   getFieldMeta,
   selectAll = false,
@@ -27,7 +25,7 @@ function MultiSelectField<T>({
 }: Props<T>) {
   const { error, touched, value } = getFieldMeta(fieldPath);
   return (
-    <div className={classNames('mr-4 mb-3 pt-2 last:mr-0 w-full relative')}>
+    <div className={classNames("relative mr-4 mb-3 w-full pt-2 last:mr-0")}>
       <FormGroup error={touched ? error : undefined} label={label}>
         <MultiSelect
           id={fieldPath}
@@ -38,17 +36,11 @@ function MultiSelectField<T>({
           options={options}
           placeholder={placeholder}
           showSelectAll={selectAll}
-          className={classNames('text-sm', {
-            'p-invalid': isFormFieldValid(touched, error),
-            'border-orange-300': unSavedFields.includes(fieldPath),
+          className={classNames("text-sm", {
+            "p-invalid": isFormFieldValid(touched, error),
           })}
           onChange={(e) => onChange(e, fieldPath)}
         />
-        {unSavedFields.includes(fieldPath) && (
-          <div className="inline-block  absolute top-2 right-0">
-            <UnsavedFieldWarning fieldPath={fieldPath} />
-          </div>
-        )}
       </FormGroup>
     </div>
   );
