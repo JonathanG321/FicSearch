@@ -78,5 +78,5 @@ export default React.memo(TextField, (prevProps, nextProps) => {
   }
   const prevData = prevProps.getFieldMeta(prevProps.fieldPath);
   const nextData = nextProps.getFieldMeta(nextProps.fieldPath);
-  return isEqual(prevData, nextData) && isEqual(prevProps.unSavedFields, nextProps.unSavedFields);
+  return isEqual(prevData, nextData);
 }) as typeof TextField;
