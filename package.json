@@ -25,7 +25,6 @@
     "node-html-parser": "^6.1.4",
     "primereact": "^9.0.0-beta.1",
     "react": "18.2.0",
-    "react-context-helpers": "*",
     "react-dom": "18.2.0",
     "sass": "^1.57.1",
     "superjson": "1.9.1",
