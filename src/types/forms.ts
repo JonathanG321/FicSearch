@@ -3,7 +3,6 @@ import type { FieldHelperProps, FieldMetaProps, FormikState, FormikValues } from
 /* eslint-disable @typescript-eslint/no-explicit-any */
 export type CommonFormFunctions<T> = {
   rawValues: T;
-  unSavedFields: (keyof T)[];
   handleFocus: ({
     target,
   }: {
