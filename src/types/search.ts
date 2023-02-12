@@ -40,7 +40,6 @@ export type AO3Search = {
 };
 
 export type TUseSearch = () => {
-  unSavedFields: (keyof SearchSchema)[];
   rawValues: SearchSchema;
   handleChange: {
     (e: ChangeEvent<any>): void | Promise<void>;
