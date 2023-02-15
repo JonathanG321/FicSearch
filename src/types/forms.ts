@@ -13,7 +13,6 @@ export type CommonFormFunctions<T> = {
   onChange: (e: any, path: Extract<keyof T, string>) => void;
   getFieldMeta: (name: Extract<keyof T, string>) => FieldMetaProps<any>;
   getFieldHelpers: (name: Extract<keyof T, string>) => FieldHelperProps<any>;
-  disabled: boolean;
 };
 
 export type Form<T extends FormikValues> = Pick<FormikState<T>, "values" | "errors" | "touched">;
