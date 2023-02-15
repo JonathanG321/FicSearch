@@ -1,6 +1,16 @@
 import { type FormikErrors } from "formik";
 import { set } from "lodash";
-import { object, string, type InferType, setLocale, date, boolean, array, ValidationError } from "yup";
+import {
+  object,
+  string,
+  type InferType,
+  setLocale,
+  date,
+  boolean,
+  array,
+  ValidationError,
+  number,
+} from "yup";
 import { type Form } from "../../types/forms";
 
 setLocale({
@@ -9,7 +19,40 @@ setLocale({
   },
 });
 
-const searchSchema = object({});
+const searchSchema = object({
+  keyWords: string().notRequired(),
+  tags: array(string().notRequired()).notRequired(),
+  excludeTags: array(string().notRequired()).notRequired(),
+  newerThan: date().notRequired(),
+  olderThan: date().notRequired(),
+  users: array(string().notRequired()).notRequired(),
+  wordCountLower: string().notRequired(),
+  wordCountUpper: string().notRequired(),
+  replies: string().notRequired(),
+  order: string()
+    .oneOf(["date", "relevance", "words", "last_update", "replies"])
+    .required()
+    .default("last_update"),
+  anyField: string().notRequired(),
+  title: string().notRequired(),
+  author: string().notRequired(),
+  singleChapter: boolean(),
+  wordCount: array(number().notRequired()).notRequired(),
+  language: string().notRequired(),
+  fandoms: array(string().notRequired()).notRequired(),
+  rating: array(number().notRequired()).notRequired(),
+  hits: array(number().notRequired()).notRequired(),
+  kudos: array(number().notRequired()).notRequired(),
+  crossovers: boolean(),
+  bookmarks: array(number().notRequired()).notRequired(),
+  comments: array(number().notRequired()).notRequired(),
+  completionStatus: boolean(),
+  sortColumn: string().notRequired(),
+  sortDirection: string().notRequired(),
+  revisedAt: string().notRequired(),
+  characters: string().notRequired(),
+  relationships: string().notRequired(),
+});
 
 export default searchSchema;
 
