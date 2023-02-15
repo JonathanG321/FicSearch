@@ -11,14 +11,7 @@ interface Props<T> extends CommonFormFunctions<T> {
   placeholder?: string;
 }
 
-function CalendarField<T>({
-  fieldPath,
-  label,
-  placeholder,
-  disabled = false,
-  onChange,
-  getFieldMeta,
-}: Props<T>) {
+function CalendarField<T>({ fieldPath, label, placeholder, onChange, getFieldMeta }: Props<T>) {
   const { error, touched, value } = getFieldMeta(fieldPath);
   return (
     <div className={classNames("mr-4 mb-3 w-full pt-2 last:mr-0")}>
@@ -32,7 +25,6 @@ function CalendarField<T>({
             placeholder={placeholder}
             iconPos="left"
             monthNavigator
-            disabled={disabled}
             yearRange="1930:2030"
             yearNavigator
             className={classNames("w-full text-sm", {

@@ -9,15 +9,14 @@ interface Props<T> extends CommonFormFunctions<T> {
   label?: string;
 }
 
-function CheckboxField<T>({ fieldPath, label, onChange, getFieldMeta, disabled = false }: Props<T>) {
+function CheckboxField<T>({ fieldPath, label, onChange, getFieldMeta }: Props<T>) {
   const { error, touched, value } = getFieldMeta(fieldPath);
   return (
-    <div className={classNames("field-checkbox relative my-4", { "hover:cursor-default": disabled })}>
+    <div className={classNames("field-checkbox relative my-4")}>
       <Checkbox
         inputId={fieldPath}
         name={fieldPath}
         checked={value}
-        disabled={disabled}
         onChange={(e) =>
           onChange(
             {
@@ -31,7 +30,6 @@ function CheckboxField<T>({ fieldPath, label, onChange, getFieldMeta, disabled =
         }
         className={classNames("mr-2", {
           "p-invalid": isFormFieldValid(touched, error),
-          "hover:cursor-default": disabled,
         })}
       />
       <label htmlFor={fieldPath} className={classNames({ "p-error": isFormFieldValid(touched, error) })}>

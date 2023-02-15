@@ -9,14 +9,7 @@ interface Props<T> extends CommonFormFunctions<T> {
   options: { label: string; value: string }[];
 }
 
-function CheckboxArrayField<T>({
-  fieldPath,
-  onChange,
-  getFieldMeta,
-  disabled = false,
-  vertical,
-  options,
-}: Props<T>) {
+function CheckboxArrayField<T>({ fieldPath, onChange, getFieldMeta, vertical, options }: Props<T>) {
   const { error, touched, value } = getFieldMeta(fieldPath);
 
   function isCheckedOnEvent(e: CheckboxChangeEvent) {
@@ -44,7 +37,6 @@ function CheckboxArrayField<T>({
             key={option.label}
             className={classNames("field-checkbox my-4", {
               "ml-0 mb-2 first:mt-0 last:mb-0": vertical,
-              "hover:cursor-default": disabled,
             })}
           >
             <Checkbox
@@ -52,10 +44,8 @@ function CheckboxArrayField<T>({
               name={`${fieldPath}[${i}]`}
               checked={value.includes(option.value)}
               onChange={(e) => handleChange(e, option)}
-              disabled={disabled}
               className={classNames("mr-2", {
                 "p-invalid": isFormFieldValid(touched, error),
-                "hover:cursor-default": disabled,
               })}
             />
             <div className="relative inline">

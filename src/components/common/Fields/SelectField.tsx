@@ -10,7 +10,7 @@ interface Props<T> extends CommonFormFunctions<T> {
   options: { label: string; value: string | boolean }[];
 }
 
-function SelectField<T>({ fieldPath, label, options, disabled = false, getFieldMeta, onChange }: Props<T>) {
+function SelectField<T>({ fieldPath, label, options, getFieldMeta, onChange }: Props<T>) {
   const { error, touched, value } = getFieldMeta(fieldPath);
   return (
     <div className={classNames("mr-4 mb-3 w-full pt-2 last:mr-0")}>
@@ -19,7 +19,6 @@ function SelectField<T>({ fieldPath, label, options, disabled = false, getFieldM
           id={fieldPath}
           value={value}
           options={options}
-          disabled={disabled}
           className={classNames("text-sm", {
             "p-invalid": isFormFieldValid(touched, error),
           })}

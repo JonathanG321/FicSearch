@@ -21,7 +21,6 @@ function MultiSelectField<T>({
   onChange,
   getFieldMeta,
   selectAll = false,
-  disabled = false,
 }: Props<T>) {
   const { error, touched, value } = getFieldMeta(fieldPath);
   return (
@@ -32,7 +31,6 @@ function MultiSelectField<T>({
           display="chip"
           name={fieldPath}
           value={Array.isArray(value) ? value : []}
-          disabled={disabled}
           options={options}
           placeholder={placeholder}
           showSelectAll={selectAll}

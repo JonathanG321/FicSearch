@@ -20,7 +20,6 @@ function TextField<T>({
   placeholder,
   iconLocation,
   icon,
-  disabled = false,
   handleFocus,
   onChange,
   getFieldMeta,
@@ -59,7 +58,6 @@ function TextField<T>({
             value={value || ""}
             placeholder={placeholder}
             onFocus={handleFocus}
-            disabled={disabled}
             className={classNames("w-full text-sm", {
               "p-invalid": isFormFieldValid(touched, error),
               "pl-8": !!icon && !!iconLocation,
@@ -73,9 +71,6 @@ function TextField<T>({
 }
 
 export default React.memo(TextField, (prevProps, nextProps) => {
-  if (nextProps.disabled !== prevProps.disabled) {
-    return false;
-  }
   const prevData = prevProps.getFieldMeta(prevProps.fieldPath);
   const nextData = nextProps.getFieldMeta(nextProps.fieldPath);
   return isEqual(prevData, nextData);

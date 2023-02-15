@@ -23,7 +23,6 @@ function NumberField<T>({
   icon,
   max,
   min = 0,
-  disabled = false,
   touchedFields,
   handleFocus,
   onChange,
@@ -65,7 +64,6 @@ function NumberField<T>({
             placeholder={placeholder}
             max={max}
             min={min}
-            disabled={disabled}
             onFocus={handleFocus}
             className={classNames("w-full text-sm", {
               "p-invalid": isFormFieldValid(isTouched, error),

@@ -11,15 +11,7 @@ interface Props<T> extends CommonFormFunctions<T> {
   options: { label: string; value: string | boolean }[];
 }
 
-function RadioField<T>({
-  fieldPath,
-  label,
-  vertical,
-  options,
-  disabled = false,
-  onChange,
-  getFieldMeta,
-}: Props<T>) {
+function RadioField<T>({ fieldPath, label, vertical, options, onChange, getFieldMeta }: Props<T>) {
   const { error, touched, value } = getFieldMeta(fieldPath);
 
   return (
@@ -32,7 +24,6 @@ function RadioField<T>({
               className={classNames("relative first:ml-0", {
                 "ml-0 mb-2 last:mb-0": vertical,
                 "ml-8": !vertical,
-                "hover:cursor-default": disabled,
               })}
             >
               <RadioButton
@@ -40,10 +31,8 @@ function RadioField<T>({
                 name={fieldPath}
                 value={option.value}
                 checked={option.value === value}
-                disabled={disabled}
                 className={classNames("text-sm", {
                   "p-invalid": isFormFieldValid(touched, error),
-                  "hover:cursor-default": disabled,
                 })}
                 onChange={(e) => onChange(e, fieldPath)}
               />

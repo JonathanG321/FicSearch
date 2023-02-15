@@ -12,15 +12,7 @@ interface Props<T> extends CommonFormFunctions<T> {
   placeholder?: string;
 }
 
-function DropdownField<T>({
-  fieldPath,
-  label,
-  options,
-  placeholder,
-  onChange,
-  getFieldMeta,
-  disabled = false,
-}: Props<T>) {
+function DropdownField<T>({ fieldPath, label, options, placeholder, onChange, getFieldMeta }: Props<T>) {
   const { error, touched, value } = getFieldMeta(fieldPath);
   return (
     <div className={classNames("relative mr-4 mb-3 w-full pt-2 last:mr-0")}>
@@ -30,7 +22,6 @@ function DropdownField<T>({
           name={fieldPath}
           value={value}
           filter
-          disabled={disabled}
           filterBy="label"
           emptyFilterMessage="Filter"
           options={options}
