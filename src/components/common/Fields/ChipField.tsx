@@ -8,8 +8,6 @@ import FormGroup from "../FormGroup";
 interface Props<T> extends CommonFormFunctions<T> {
   fieldPath: Extract<keyof T, string>;
   label?: string;
-  options: { value: any; label: string }[];
-  selectAll?: boolean;
   placeholder?: string;
 }
 
