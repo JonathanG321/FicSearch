@@ -4,9 +4,9 @@ import { type SearchSchema } from "../utils/search/schema";
 import { type CommonFormFunctions } from "../types/forms";
 import TextField from "./common/Fields/TextField";
 import NumberField from "./common/Fields/NumberField";
-import SelectField from "./common/Fields/SelectField";
 import { languages } from "../utils/languages";
 import ChipField from "./common/Fields/ChipField";
+import DropdownField from "./common/Fields/DropdownField";
 
 export type SearchFormType = { test: string };
 
@@ -55,11 +55,11 @@ function SearchForm({}: SearchFormType) {
         </div>
         <h2 className="mb-2 text-2xl">Archive of Our Own</h2>
         <div className="mb-4 flex rounded border p-4">
-          <SelectField<SearchSchema>
+          <DropdownField<SearchSchema>
             {...commonFormFunctions}
             options={languages.map((language) => ({
               label: language,
-              value: language.toLowerCase().replaceAll(" ", ""),
+              value: language.toLowerCase(),
             }))}
             label="Language"
             fieldPath="language"
