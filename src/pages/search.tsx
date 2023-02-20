@@ -1,8 +1,13 @@
 import { type NextPage } from "next";
 import Head from "next/head";
+import { useState } from "react";
 import SearchForm from "../components/searchForm";
+import { type SearchForm as SearchFormType } from "../utils/search/schema";
+import { SearchProvider } from "../contexts/SearchContext";
+import { createBlankSearch } from "../utils/search/createBlankSearch";
 
 const Search: NextPage = () => {
+  const [localSearch, setLocalSearch] = useState<SearchFormType>(createBlankSearch);
   return (
     <>
       <Head>
@@ -12,7 +17,9 @@ const Search: NextPage = () => {
       </Head>
       <main className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-[#2e026d] to-[#15162c]">
         <div className="flex flex-col items-center justify-center">
-          <SearchForm test="" />
+          <SearchProvider search={localSearch} updateSearch={setLocalSearch}>
+            <SearchForm test="" />
+          </SearchProvider>
         </div>
       </main>
     </>
