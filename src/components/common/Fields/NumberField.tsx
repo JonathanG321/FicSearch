@@ -65,7 +65,7 @@ function NumberField<T>({
             max={max}
             min={min}
             onFocus={handleFocus}
-            className={classNames("w-full text-sm", {
+            className={classNames("w-full bg-violet-900 text-sm", {
               "p-invalid": isFormFieldValid(isTouched, error),
               "pl-8": !!icon && !!iconLocation,
             })}

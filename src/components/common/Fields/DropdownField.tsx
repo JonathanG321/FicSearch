@@ -26,7 +26,7 @@ function DropdownField<T>({ fieldPath, label, options, placeholder, onChange, ge
           emptyFilterMessage="Filter"
           options={options}
           placeholder={placeholder}
-          className={classNames("text-sm", {
+          className={classNames("bg-violet-900 text-sm", {
             "p-invalid": isFormFieldValid(touched, error),
           })}
           onChange={(e) => onChange(e, fieldPath)}

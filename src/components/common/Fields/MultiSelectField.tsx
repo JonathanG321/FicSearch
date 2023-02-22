@@ -34,7 +34,7 @@ function MultiSelectField<T>({
           options={options}
           placeholder={placeholder}
           showSelectAll={selectAll}
-          className={classNames("text-sm", {
+          className={classNames("bg-violet-900 text-sm", {
             "p-invalid": isFormFieldValid(touched, error),
           })}
           onChange={(e) => onChange(e, fieldPath)}

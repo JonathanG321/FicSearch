@@ -19,7 +19,7 @@ function SelectField<T>({ fieldPath, label, options, getFieldMeta, onChange }: P
           id={fieldPath}
           value={value}
           options={options}
-          className={classNames("text-sm", {
+          className={classNames("bg-violet-900 text-sm", {
             "p-invalid": isFormFieldValid(touched, error),
           })}
           onChange={(e) => onChange({ target: { name: fieldPath, value: e.value } }, fieldPath)}
