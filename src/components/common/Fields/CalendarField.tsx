@@ -27,7 +27,7 @@ function CalendarField<T>({ fieldPath, label, placeholder, onChange, getFieldMet
             monthNavigator
             yearRange="1930:2030"
             yearNavigator
-            className={classNames("w-full text-sm", {
+            className={classNames("w-full bg-violet-900 text-sm", {
               "p-invalid": isFormFieldValid(touched, error),
             })}
             onChange={(e) => {

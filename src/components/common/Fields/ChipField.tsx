@@ -21,7 +21,7 @@ function ChipField<T>({ fieldPath, label, placeholder, onChange, getFieldMeta }:
           name={fieldPath}
           value={Array.isArray(value) ? value : []}
           placeholder={placeholder}
-          className={classNames("text-sm", {
+          className={classNames("bg-violet-900 text-sm", {
             "p-invalid": isFormFieldValid(touched, error),
           })}
           onChange={(e) => onChange(e, fieldPath)}
