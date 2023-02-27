@@ -5,6 +5,7 @@ import SearchForm from "../components/searchForm";
 import { type SearchForm as SearchFormType } from "../utils/search/schema";
 import { SearchProvider } from "../contexts/SearchContext";
 import { createBlankSearch } from "../utils/search/createBlankSearch";
+import "primereact/resources/themes/bootstrap4-light-purple/theme.css";
 
 const Search: NextPage = () => {
   const [localSearch, setLocalSearch] = useState<SearchFormType>(createBlankSearch);
