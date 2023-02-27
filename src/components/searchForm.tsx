@@ -2,6 +2,7 @@
 import { useSearch } from "../hooks/useSearch";
 import { type SearchSchema } from "../utils/search/schema";
 import { type CommonFormFunctions } from "../types/forms";
+import { Card } from "primereact/card";
 import TextField from "./common/Fields/TextField";
 import NumberField from "./common/Fields/NumberField";
 import { languages } from "../utils/languages";
@@ -44,8 +45,10 @@ function SearchForm({}: SearchFormType) {
       <form onSubmit={handleSubmit}>
         <h2 className="mb-2 text-2xl">Universal</h2>
         <div className="mb-4 flex rounded border p-4">
-          <TextField<SearchSchema> {...commonFormFunctions} label="Key Words" fieldPath="keyWords" />
-          <ChipField<SearchSchema> {...commonFormFunctions} label="Tags" fieldPath="tags" />
+          <Card className="w-full">
+            <TextField<SearchSchema> {...commonFormFunctions} label="Key Words" fieldPath="keyWords" />
+            <ChipField<SearchSchema> {...commonFormFunctions} label="Tags" fieldPath="tags" />
+          </Card>
         </div>
         <h2 className="mb-2 text-2xl">Space Battles</h2>
         <div className="mb-4 flex rounded border p-4">
