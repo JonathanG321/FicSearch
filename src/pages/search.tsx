@@ -5,7 +5,10 @@ import SearchForm from "../components/searchForm";
 import { type SearchForm as SearchFormType } from "../utils/search/schema";
 import { SearchProvider } from "../contexts/SearchContext";
 import { createBlankSearch } from "../utils/search/createBlankSearch";
-import "primereact/resources/themes/bootstrap4-light-purple/theme.css";
+import "primereact/resources/primereact.min.css";
+import "primereact/resources/themes/tailwind-light/theme.css";
+import "primeicons/primeicons.css";
+import "primeflex/primeflex.css";
 
 const Search: NextPage = () => {
   const [localSearch, setLocalSearch] = useState<SearchFormType>(createBlankSearch);
@@ -17,11 +20,9 @@ const Search: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-[#2e026d] to-[#15162c]">
-        <div className="flex flex-col items-center justify-center">
-          <SearchProvider search={localSearch} updateSearch={setLocalSearch}>
-            <SearchForm test="" />
-          </SearchProvider>
-        </div>
+        <SearchProvider search={localSearch} updateSearch={setLocalSearch}>
+          <SearchForm test="" />
+        </SearchProvider>
       </main>
     </>
   );

@@ -14,15 +14,16 @@ interface Props<T> extends CommonFormFunctions<T> {
 function ChipField<T>({ fieldPath, label, placeholder, onChange, getFieldMeta }: Props<T>) {
   const { error, touched, value } = getFieldMeta(fieldPath);
   return (
-    <div className={classNames("relative mr-4 mb-3 w-full pt-2 last:mr-0")}>
+    <div className={classNames("relative mr-4 mb-3 w-full last:mr-0")}>
       <FormGroup error={touched ? error : undefined} label={label}>
         <Chips
           id={fieldPath}
           name={fieldPath}
           value={Array.isArray(value) ? value : []}
           placeholder={placeholder}
+          removable
           separator=","
-          className={classNames("[&>ul]:flex", {
+          className={classNames({
             "p-invalid": isFormFieldValid(touched, error),
           })}
           onChange={(e) => onChange(e, fieldPath)}

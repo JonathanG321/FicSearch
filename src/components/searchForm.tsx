@@ -44,12 +44,10 @@ function SearchForm({}: SearchFormType) {
     <div className="text-white">
       <form onSubmit={handleSubmit}>
         <h2 className="mb-2 text-2xl">Universal</h2>
-        <div className="mb-4 flex rounded border p-4">
-          <Card className="w-full">
-            <TextField<SearchSchema> {...commonFormFunctions} label="Key Words" fieldPath="keyWords" />
-            <ChipField<SearchSchema> {...commonFormFunctions} label="Tags" fieldPath="tags" />
-          </Card>
-        </div>
+        <Card className="w-full">
+          <TextField<SearchSchema> {...commonFormFunctions} label="Key Words" fieldPath="keyWords" />
+          <ChipField<SearchSchema> {...commonFormFunctions} label="Tags" fieldPath="tags" />
+        </Card>
         <h2 className="mb-2 text-2xl">Space Battles</h2>
         <div className="mb-4 flex rounded border p-4">
           <ChipField<SearchSchema> {...commonFormFunctions} label="Exclude Tags" fieldPath="excludeTags" />

@@ -43,7 +43,7 @@ function TextField<T>({
   };
 
   return (
-    <div className={classNames("mr-4 mb-3 w-full pt-2 last:mr-0")}>
+    <div className={classNames("mr-4 mb-3 w-full last:mr-0")}>
       <FormGroup error={touched ? error : undefined} label={label}>
         <div
           className={classNames("flex w-full items-center", {
