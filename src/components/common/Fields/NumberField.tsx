@@ -48,7 +48,7 @@ function NumberField<T>({
     );
   }
   return (
-    <div className={classNames("mr-4 mb-3 w-full pt-2 last:mr-0")}>
+    <div className={classNames("mr-4 mb-3 w-full last:mr-0")}>
       <FormGroup error={isTouched ? error : undefined} label={label}>
         <div
           className={classNames("w-full", {
@@ -65,7 +65,7 @@ function NumberField<T>({
             max={max}
             min={min}
             onFocus={handleFocus}
-            className={classNames("w-full bg-violet-900 text-sm", {
+            className={classNames("w-full text-sm", {
               "p-invalid": isFormFieldValid(isTouched, error),
               "pl-8": !!icon && !!iconLocation,
             })}

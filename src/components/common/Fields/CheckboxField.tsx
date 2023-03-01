@@ -28,7 +28,7 @@ function CheckboxField<T>({ fieldPath, label, onChange, getFieldMeta }: Props<T>
             fieldPath
           )
         }
-        className={classNames("mr-2 bg-violet-900", {
+        className={classNames("mr-2", {
           "p-invalid": isFormFieldValid(touched, error),
         })}
       />

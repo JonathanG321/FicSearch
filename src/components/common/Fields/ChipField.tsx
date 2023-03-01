@@ -23,7 +23,7 @@ function ChipField<T>({ fieldPath, label, placeholder, onChange, getFieldMeta }:
           placeholder={placeholder}
           removable
           separator=","
-          className={classNames({
+          className={classNames("text-sm", {
             "p-invalid": isFormFieldValid(touched, error),
           })}
           onChange={(e) => onChange(e, fieldPath)}

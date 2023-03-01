@@ -15,7 +15,7 @@ function RadioField<T>({ fieldPath, label, vertical, options, onChange, getField
   const { error, touched, value } = getFieldMeta(fieldPath);
 
   return (
-    <div className={classNames("mr-4 mb-3 w-full pt-2 last:mr-0")}>
+    <div className={classNames("mr-4 mb-3 w-full last:mr-0")}>
       <FormGroup error={touched ? error : undefined} label={label}>
         <div className={classNames({ flex: !vertical })}>
           {options.map((option) => (

@@ -44,7 +44,7 @@ function CheckboxArrayField<T>({ fieldPath, onChange, getFieldMeta, vertical, op
               name={`${fieldPath}[${i}]`}
               checked={value.includes(option.value)}
               onChange={(e) => handleChange(e, option)}
-              className={classNames("mr-2 bg-violet-900", {
+              className={classNames("mr-2", {
                 "p-invalid": isFormFieldValid(touched, error),
               })}
             />

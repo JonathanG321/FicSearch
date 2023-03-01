@@ -13,13 +13,13 @@ interface Props<T> extends CommonFormFunctions<T> {
 function SelectField<T>({ fieldPath, label, options, getFieldMeta, onChange }: Props<T>) {
   const { error, touched, value } = getFieldMeta(fieldPath);
   return (
-    <div className={classNames("mr-4 mb-3 w-full pt-2 last:mr-0")}>
+    <div className={classNames("mr-4 mb-3 w-full last:mr-0")}>
       <FormGroup error={touched ? error : undefined} label={label}>
         <SelectButton
           id={fieldPath}
           value={value}
           options={options}
-          className={classNames("bg-violet-900 text-sm", {
+          className={classNames("text-sm", {
             "p-invalid": isFormFieldValid(touched, error),
           })}
           onChange={(e) => onChange({ target: { name: fieldPath, value: e.value } }, fieldPath)}

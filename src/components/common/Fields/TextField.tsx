@@ -58,7 +58,7 @@ function TextField<T>({
             value={value || ""}
             placeholder={placeholder}
             onFocus={handleFocus}
-            className={classNames("w-full bg-violet-900 text-sm", {
+            className={classNames("w-full text-sm", {
               "p-invalid": isFormFieldValid(touched, error),
               "pl-8": !!icon && !!iconLocation,
             })}

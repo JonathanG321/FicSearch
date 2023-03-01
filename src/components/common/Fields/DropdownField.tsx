@@ -15,7 +15,7 @@ interface Props<T> extends CommonFormFunctions<T> {
 function DropdownField<T>({ fieldPath, label, options, placeholder, onChange, getFieldMeta }: Props<T>) {
   const { error, touched, value } = getFieldMeta(fieldPath);
   return (
-    <div className={classNames("relative mr-4 mb-3 w-full pt-2 last:mr-0")}>
+    <div className={classNames("relative mr-4 mb-3 w-full last:mr-0")}>
       <FormGroup error={touched ? error : undefined} label={label}>
         <Dropdown
           id={fieldPath}
@@ -26,7 +26,7 @@ function DropdownField<T>({ fieldPath, label, options, placeholder, onChange, ge
           emptyFilterMessage="Filter"
           options={options}
           placeholder={placeholder}
-          className={classNames("bg-violet-900 text-sm", {
+          className={classNames("text-sm", {
             "p-invalid": isFormFieldValid(touched, error),
           })}
           onChange={(e) => onChange(e, fieldPath)}
