@@ -44,18 +44,18 @@ function SearchForm({}: SearchFormType) {
     <div className="text-white">
       <form onSubmit={handleSubmit}>
         <h2 className="mb-2 text-2xl">Universal</h2>
-        <Card className="w-full">
+        <Card className="w-full bg-gradient-to-b from-[#2e026d] to-[#15162c]">
           <TextField<SearchSchema> {...commonFormFunctions} label="Key Words" fieldPath="keyWords" />
           <ChipField<SearchSchema> {...commonFormFunctions} label="Tags" fieldPath="tags" />
         </Card>
         <h2 className="mb-2 text-2xl">Space Battles</h2>
-        <div className="mb-4 flex rounded border p-4">
+        <Card className="w-full bg-gradient-to-b from-[#2e026d] to-[#15162c]">
           <ChipField<SearchSchema> {...commonFormFunctions} label="Exclude Tags" fieldPath="excludeTags" />
           <NumberField<SearchSchema> {...commonFormFunctions} label="Replies" fieldPath="replies" />
           <ChipField<SearchSchema> {...commonFormFunctions} label="Users" fieldPath="users" />
-        </div>
+        </Card>
         <h2 className="mb-2 text-2xl">Archive of Our Own</h2>
-        <div className="mb-4 flex rounded border p-4">
+        <Card className="w-full bg-gradient-to-b from-[#2e026d] to-[#15162c]">
           <DropdownField<SearchSchema>
             {...commonFormFunctions}
             options={languages.map((language) => ({
@@ -65,7 +65,7 @@ function SearchForm({}: SearchFormType) {
             label="Language"
             fieldPath="language"
           />
-        </div>
+        </Card>
       </form>
     </div>
   );
