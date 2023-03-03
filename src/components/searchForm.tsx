@@ -42,7 +42,7 @@ function SearchForm({}: SearchFormType) {
     getFieldMeta,
   };
   return (
-    <div className="py-10 text-white">
+    <div className="w-9/12 py-10 text-white lg:w-9/12">
       <form onSubmit={handleSubmit}>
         <h2 className="mb-2 text-2xl">Universal</h2>
         <Card className="w-full bg-gradient-to-b from-[#2e026d] to-[#15162c]">
