@@ -22,9 +22,11 @@ function SearchForm({}: SearchFormType) {
     setOnFocusValue,
     getFieldMeta,
   } = useSearch();
+
   const handleFocus = ({ target }: { target: { value: any } }) => {
     setOnFocusValue(target.value);
   };
+
   function onChange(e: any, path: keyof SearchSchema) {
     const { setTouched: setFieldTouched } = getFieldHelpers(path);
     setFieldTouched(true);
@@ -34,6 +36,7 @@ function SearchForm({}: SearchFormType) {
       handleChange(e);
     }
   }
+
   const commonFormFunctions: CommonFormFunctions<SearchSchema> = {
     rawValues,
     onChange,
@@ -41,6 +44,7 @@ function SearchForm({}: SearchFormType) {
     getFieldHelpers,
     getFieldMeta,
   };
+
   return (
     <div className="w-9/12 py-10 text-white lg:w-9/12">
       <form onSubmit={handleSubmit}>
@@ -48,14 +52,16 @@ function SearchForm({}: SearchFormType) {
         <Card className="w-full bg-gradient-to-b from-[#2e026d] to-[#15162c]">
           <TextField<SearchSchema> {...commonFormFunctions} label="Key Words" fieldPath="keyWords" />
           <ChipField<SearchSchema> {...commonFormFunctions} label="Tags" fieldPath="tags" />
-          <CalendarField<SearchSchema> {...commonFormFunctions} label="Older Than" fieldPath="olderThan" />
-          <CalendarField<SearchSchema> {...commonFormFunctions} label="Newer Than" fieldPath="newerThan" />
         </Card>
         <h2 className="my-2 text-2xl">Space Battles</h2>
         <Card className="w-full bg-gradient-to-b from-[#2e026d] to-[#15162c]">
           <ChipField<SearchSchema> {...commonFormFunctions} label="Exclude Tags" fieldPath="excludeTags" />
           <NumberField<SearchSchema> {...commonFormFunctions} label="Replies" fieldPath="replies" />
           <ChipField<SearchSchema> {...commonFormFunctions} label="Users" fieldPath="users" />
+          <div className="flex">
+            <CalendarField<SearchSchema> {...commonFormFunctions} label="Older Than" fieldPath="olderThan" />
+            <CalendarField<SearchSchema> {...commonFormFunctions} label="Newer Than" fieldPath="newerThan" />
+          </div>
         </Card>
         <h2 className="my-2 text-2xl">Archive of Our Own</h2>
         <Card className="w-full bg-gradient-to-b from-[#2e026d] to-[#15162c]">

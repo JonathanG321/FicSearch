@@ -14,7 +14,7 @@ interface Props<T> extends CommonFormFunctions<T> {
 function CalendarField<T>({ fieldPath, label, placeholder, onChange, getFieldMeta }: Props<T>) {
   const { error, touched, value } = getFieldMeta(fieldPath);
   return (
-    <div className={classNames("mr-4 mb-3 w-full  last:mr-0")}>
+    <div className={classNames("calendar mr-4 mb-3 w-full")}>
       <FormGroup error={touched ? error : undefined} label={label}>
         <div className="flex items-center">
           <Calendar
