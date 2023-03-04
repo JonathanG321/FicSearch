@@ -56,12 +56,55 @@ function SearchForm({}: SearchFormType) {
         <h2 className="my-2 text-2xl">Space Battles</h2>
         <Card className="w-full bg-gradient-to-b from-[#2e026d] to-[#15162c]">
           <ChipField<SearchSchema> {...commonFormFunctions} label="Exclude Tags" fieldPath="excludeTags" />
-          <NumberField<SearchSchema> {...commonFormFunctions} label="Replies" fieldPath="replies" />
           <ChipField<SearchSchema> {...commonFormFunctions} label="Users" fieldPath="users" />
+          <NumberField<SearchSchema> {...commonFormFunctions} label="Replies" fieldPath="replies" />
+          <div className="flex">
+            <NumberField<SearchSchema>
+              {...commonFormFunctions}
+              label="Word Count"
+              placeholder="Lower"
+              fieldPath="wordCountLower"
+            />
+            <span className="flex flex-col justify-center text-center text-5xl"> - </span>
+            <NumberField<SearchSchema>
+              {...commonFormFunctions}
+              label=" "
+              placeholder="Upper"
+              fieldPath="wordCountUpper"
+            />
+          </div>
           <div className="flex">
             <CalendarField<SearchSchema> {...commonFormFunctions} label="Older Than" fieldPath="olderThan" />
             <CalendarField<SearchSchema> {...commonFormFunctions} label="Newer Than" fieldPath="newerThan" />
           </div>
+          <DropdownField<SearchSchema>
+            {...commonFormFunctions}
+            options={[
+              {
+                label: "Last Update",
+                value: "last_update",
+              },
+              {
+                label: "Date",
+                value: "date",
+              },
+              {
+                label: "Relevance",
+                value: "relevance",
+              },
+              {
+                label: "Words",
+                value: "words",
+              },
+              {
+                label: "Replies",
+                value: "replies",
+              },
+            ]}
+            filter={false}
+            label="Order"
+            fieldPath="order"
+          />
         </Card>
         <h2 className="my-2 text-2xl">Archive of Our Own</h2>
         <Card className="w-full bg-gradient-to-b from-[#2e026d] to-[#15162c]">
