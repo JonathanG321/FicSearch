@@ -22,6 +22,7 @@ setLocale({
 const searchSchema = object({
   title: string().notRequired(), // Universal
   tags: array(string().notRequired()).notRequired(), // Universal
+  author: string().notRequired(), // Universal
   keyWords: string().notRequired(), // Space Battles
   excludeTags: array(string().notRequired()).notRequired(), // Space Battles
   newerThan: date().notRequired(), // Space Battles
@@ -35,7 +36,6 @@ const searchSchema = object({
     .required()
     .default("last_update"), // Space Battles
   anyField: string().notRequired(), // AO3
-  author: string().notRequired(), // AO3
   singleChapter: boolean(), // AO3
   wordCount: array(number().notRequired()).length(2).notRequired(), // AO3
   language: string().notRequired(), // AO3

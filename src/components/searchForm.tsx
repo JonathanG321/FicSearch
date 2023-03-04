@@ -37,6 +37,14 @@ function SearchForm({}: SearchFormType) {
     }
   }
 
+  function onChangeMulti(e: any, paths: (keyof SearchSchema)[]) {
+    paths.forEach((path) => {
+      const { setTouched: setFieldTouched } = getFieldHelpers(path);
+      setFieldTouched(true);
+      setFieldValue(path, e.target.value);
+    });
+  }
+
   const commonFormFunctions: CommonFormFunctions<SearchSchema> = {
     rawValues,
     onChange,
@@ -50,7 +58,13 @@ function SearchForm({}: SearchFormType) {
       <form onSubmit={handleSubmit}>
         <h2 className="mb-2 text-2xl">Universal</h2>
         <Card className="w-full bg-gradient-to-b from-[#2e026d] to-[#15162c]">
-          <TextField<SearchSchema> {...commonFormFunctions} label="Key Words" fieldPath="keyWords" />
+          <TextField<SearchSchema>
+            {...commonFormFunctions}
+            label="Key Words"
+            fieldPath="keyWords"
+            onChange={(e) => onChangeMulti(e, ["anyField", "keyWords"])}
+          />
+          <TextField<SearchSchema> {...commonFormFunctions} label="Title" fieldPath="title" />
           <ChipField<SearchSchema> {...commonFormFunctions} label="Tags" fieldPath="tags" />
         </Card>
         <h2 className="my-2 text-2xl">Space Battles</h2>
