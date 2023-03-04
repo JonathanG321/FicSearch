@@ -48,10 +48,10 @@ function NumberField<T>({
     );
   }
   return (
-    <div className={classNames("mr-4 mb-3 w-full last:mr-0")}>
+    <div className={classNames("w-fill mx-2 mb-3 last:mr-0")}>
       <FormGroup error={isTouched ? error : undefined} label={label}>
         <div
-          className={classNames("w-full", {
+          className={classNames("w-fill", {
             "p-input-icon-left": iconLocation === "left",
             "p-input-icon-right": iconLocation === "right",
           })}
@@ -65,7 +65,7 @@ function NumberField<T>({
             max={max}
             min={min}
             onFocus={handleFocus}
-            className={classNames("w-full text-sm", {
+            className={classNames("w-fill text-sm", {
               "p-invalid": isFormFieldValid(isTouched, error),
               "pl-8": !!icon && !!iconLocation,
             })}

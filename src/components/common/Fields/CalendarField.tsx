@@ -14,7 +14,7 @@ interface Props<T> extends CommonFormFunctions<T> {
 function CalendarField<T>({ fieldPath, label, placeholder, onChange, getFieldMeta }: Props<T>) {
   const { error, touched, value } = getFieldMeta(fieldPath);
   return (
-    <div className={classNames("calendar mr-4 mb-3 w-full")}>
+    <div className={classNames("calendar w-fill mx-2 mb-3")}>
       <FormGroup error={touched ? error : undefined} label={label}>
         <div className="flex items-center">
           <Calendar
@@ -27,7 +27,7 @@ function CalendarField<T>({ fieldPath, label, placeholder, onChange, getFieldMet
             monthNavigator
             yearRange="1930:2030"
             yearNavigator
-            className={classNames("w-full text-sm", {
+            className={classNames("w-fill text-sm", {
               "p-invalid": isFormFieldValid(touched, error),
             })}
             onChange={(e) => {

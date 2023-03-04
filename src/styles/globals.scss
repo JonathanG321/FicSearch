@@ -19,8 +19,8 @@ ul.p-inputtext {
   width: 100%;
 }
 
-.calendar:last-child {
-  margin-right: 0px !important;
+.w-fill {
+  width: -webkit-fill-available !important;
 }
 
 .GeneralInput {
