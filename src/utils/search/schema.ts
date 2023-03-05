@@ -44,14 +44,15 @@ const searchSchema = object({
   hits: array(number().notRequired()).length(2).notRequired(), // AO3
   kudos: array(number().notRequired()).length(2).notRequired(), // AO3
   crossovers: boolean(), // AO3
-  bookmarks: array(number().notRequired()).notRequired(), // AO3
-  comments: array(number().notRequired()).notRequired(), // AO3
+  bookmarks: array(number().notRequired()).length(2).notRequired(), // AO3
+  comments: array(number().notRequired()).length(2).notRequired(), // AO3
   completionStatus: boolean(), // AO3
+  // TODO: finish adding fields
   sortColumn: string().notRequired(), // AO3
   sortDirection: string().notRequired(), // AO3
   revisedAt: string().notRequired(), // AO3
-  characters: string().notRequired(), // AO3
-  relationships: string().notRequired(), // AO3
+  characters: array(string().notRequired()).notRequired(), // AO3
+  relationships: array(string().notRequired()).notRequired(), // AO3
 });
 
 export default searchSchema;
