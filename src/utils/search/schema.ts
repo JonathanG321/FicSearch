@@ -20,27 +20,27 @@ setLocale({
 });
 
 const searchSchema = object({
+  anyField: string().notRequired(), // Universal
+  keyWords: string().notRequired(), // Universal
   title: string().notRequired(), // Universal
   tags: array(string().notRequired()).notRequired(), // Universal
   author: string().notRequired(), // Universal
-  keyWords: string().notRequired(), // Space Battles
+  users: array(string().notRequired()).notRequired(), // Universal
+  wordCountLower: string().notRequired(), // Universal
+  wordCountUpper: string().notRequired(), // Universal
+  wordCount: array(number().notRequired()).length(2).notRequired(), // Universal
   excludeTags: array(string().notRequired()).notRequired(), // Space Battles
   newerThan: date().notRequired(), // Space Battles
   olderThan: date().notRequired(), // Space Battles
-  users: array(string().notRequired()).notRequired(), // Space Battles
-  wordCountLower: string().notRequired(), // Space Battles
-  wordCountUpper: string().notRequired(), // Space Battles
   replies: string().notRequired(), // Space Battles
   order: string()
     .oneOf(["date", "relevance", "words", "last_update", "replies"])
     .required()
     .default("last_update"), // Space Battles
-  anyField: string().notRequired(), // AO3
   singleChapter: boolean(), // AO3
-  wordCount: array(number().notRequired()).length(2).notRequired(), // AO3
   language: string().notRequired(), // AO3
   fandoms: array(string().notRequired()).notRequired(), // AO3
-  rating: array(number().notRequired()).length(2).notRequired(), // AO3
+  rating: array(number().min(1).max(5).notRequired()).length(2).notRequired(), // AO3
   hits: array(number().notRequired()).length(2).notRequired(), // AO3
   kudos: array(number().notRequired()).length(2).notRequired(), // AO3
   crossovers: boolean(), // AO3
