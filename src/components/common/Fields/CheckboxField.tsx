@@ -12,7 +12,7 @@ interface Props<T> extends CommonFormFunctions<T> {
 function CheckboxField<T>({ fieldPath, label, onChange, getFieldMeta }: Props<T>) {
   const { error, touched, value } = getFieldMeta(fieldPath);
   return (
-    <div className={classNames("field-checkbox relative my-4")}>
+    <div className={classNames("field-checkbox relative mx-2 my-4")}>
       <Checkbox
         inputId={fieldPath}
         name={fieldPath}

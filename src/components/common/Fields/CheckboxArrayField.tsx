@@ -35,7 +35,7 @@ function CheckboxArrayField<T>({ fieldPath, onChange, getFieldMeta, vertical, op
         option.value !== "" ? (
           <div
             key={option.label}
-            className={classNames("field-checkbox my-4", {
+            className={classNames("field-checkbox mx-2 my-4", {
               "ml-0 mb-2 first:mt-0 last:mb-0": vertical,
             })}
           >
