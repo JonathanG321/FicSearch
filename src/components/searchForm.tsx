@@ -65,13 +65,24 @@ function SearchForm({}: SearchFormType) {
             onChange={(e) => onChangeMulti(e, ["anyField", "keyWords"])}
           />
           <TextField<SearchSchema> {...commonFormFunctions} label="Title" fieldPath="title" />
+          <ChipField<SearchSchema>
+            {...commonFormFunctions}
+            label="Authors"
+            fieldPath="users"
+            onChange={(e) => {
+              const { setTouched: setFieldTouched1 } = getFieldHelpers("users");
+              const { setTouched: setFieldTouched2 } = getFieldHelpers("author");
+              setFieldTouched1(true);
+              setFieldTouched2(true);
+              setFieldValue("users", e.target.value);
+              setFieldValue("author", e.target.value[0] || "");
+            }}
+          />
           <ChipField<SearchSchema> {...commonFormFunctions} label="Tags" fieldPath="tags" />
         </Card>
         <h2 className="my-2 text-2xl">Space Battles</h2>
         <Card className="w-full bg-gradient-to-b from-[#2e026d] to-[#15162c]">
           <ChipField<SearchSchema> {...commonFormFunctions} label="Exclude Tags" fieldPath="excludeTags" />
-          <ChipField<SearchSchema> {...commonFormFunctions} label="Users" fieldPath="users" />
-          <NumberField<SearchSchema> {...commonFormFunctions} label="Replies" fieldPath="replies" />
           <div className="flex">
             <NumberField<SearchSchema>
               {...commonFormFunctions}
@@ -91,34 +102,37 @@ function SearchForm({}: SearchFormType) {
             <CalendarField<SearchSchema> {...commonFormFunctions} label="Older Than" fieldPath="olderThan" />
             <CalendarField<SearchSchema> {...commonFormFunctions} label="Newer Than" fieldPath="newerThan" />
           </div>
-          <DropdownField<SearchSchema>
-            {...commonFormFunctions}
-            options={[
-              {
-                label: "Last Update",
-                value: "last_update",
-              },
-              {
-                label: "Date",
-                value: "date",
-              },
-              {
-                label: "Relevance",
-                value: "relevance",
-              },
-              {
-                label: "Words",
-                value: "words",
-              },
-              {
-                label: "Replies",
-                value: "replies",
-              },
-            ]}
-            filter={false}
-            label="Order"
-            fieldPath="order"
-          />
+          <div className="flex">
+            <NumberField<SearchSchema> {...commonFormFunctions} label="Replies" fieldPath="replies" />
+            <DropdownField<SearchSchema>
+              {...commonFormFunctions}
+              options={[
+                {
+                  label: "Last Update",
+                  value: "last_update",
+                },
+                {
+                  label: "Date",
+                  value: "date",
+                },
+                {
+                  label: "Relevance",
+                  value: "relevance",
+                },
+                {
+                  label: "Words",
+                  value: "words",
+                },
+                {
+                  label: "Replies",
+                  value: "replies",
+                },
+              ]}
+              filter={false}
+              label="Order"
+              fieldPath="order"
+            />
+          </div>
         </Card>
         <h2 className="my-2 text-2xl">Archive of Our Own</h2>
         <Card className="w-full bg-gradient-to-b from-[#2e026d] to-[#15162c]">
