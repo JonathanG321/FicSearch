@@ -10,6 +10,7 @@ import ChipField from "./common/Fields/ChipField";
 import DropdownField from "./common/Fields/DropdownField";
 import CalendarField from "./common/Fields/CalendarField";
 import CheckboxField from "./common/Fields/CheckboxField";
+import { sortByOptions } from "../utils/ao3";
 
 export type SearchFormType = { test: string };
 
@@ -290,6 +291,34 @@ function SearchForm({}: SearchFormType) {
               onChange={(e) => onChangeTuple(e, "comments", "max")}
             />
           </div>
+          <div className="flex">
+            <DropdownField<SearchSchema>
+              {...commonFormFunctions}
+              options={sortByOptions}
+              filter={false}
+              label="Sort By"
+              fieldPath="sortColumn"
+            />
+            <DropdownField<SearchSchema>
+              {...commonFormFunctions}
+              options={[
+                {
+                  label: "Descending",
+                  value: "desc",
+                },
+                {
+                  label: "Ascending",
+                  value: "asc",
+                },
+              ]}
+              filter={false}
+              label="Sort Direction"
+              fieldPath="sortDirection"
+            />
+            <CalendarField<SearchSchema> {...commonFormFunctions} label="Revised At" fieldPath="revisedAt" />
+          </div>
+          <ChipField<SearchSchema> {...commonFormFunctions} label="Characters" fieldPath="characters" />
+          <ChipField<SearchSchema> {...commonFormFunctions} label="Relationships" fieldPath="relationships" />
         </Card>
       </form>
     </div>
