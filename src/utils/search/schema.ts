@@ -12,7 +12,7 @@ import {
   number,
 } from "yup";
 import { type Form } from "../../types/forms";
-import { sortDirections } from "../ao3";
+import { sortByValues } from "../ao3";
 
 setLocale({
   mixed: {
@@ -44,12 +44,13 @@ const searchSchema = object({
   rating: array(number().min(1).max(5).notRequired()).length(2).notRequired(), // AO3
   hits: array(number().notRequired()).length(2).notRequired(), // AO3
   kudos: array(number().notRequired()).length(2).notRequired(), // AO3
-  crossovers: boolean(), // AO3
   bookmarks: array(number().notRequired()).length(2).notRequired(), // AO3
   comments: array(number().notRequired()).length(2).notRequired(), // AO3
+  // TODO: Check for how this data should be sent
+  crossovers: boolean(), // AO3
   completionStatus: boolean(), // AO3
-  // TODO: finish adding fields
-  sortColumn: string().oneOf(sortDirections).default("_score").notRequired(), // AO3
+  //
+  sortColumn: string().oneOf(sortByValues).default("_score").notRequired(), // AO3
   sortDirection: string().oneOf(["desc", "asc"]).default("desc").notRequired(), // AO3
   revisedAt: date().notRequired(), // AO3
   characters: array(string().notRequired()).notRequired(), // AO3
