@@ -12,6 +12,7 @@ import {
   number,
 } from "yup";
 import { type Form } from "../../types/forms";
+import { sortDirections } from "../ao3";
 
 setLocale({
   mixed: {
@@ -48,9 +49,9 @@ const searchSchema = object({
   comments: array(number().notRequired()).length(2).notRequired(), // AO3
   completionStatus: boolean(), // AO3
   // TODO: finish adding fields
-  sortColumn: string().notRequired(), // AO3
-  sortDirection: string().notRequired(), // AO3
-  revisedAt: string().notRequired(), // AO3
+  sortColumn: string().oneOf(sortDirections).default("_score").notRequired(), // AO3
+  sortDirection: string().oneOf(["desc", "asc"]).default("desc").notRequired(), // AO3
+  revisedAt: date().notRequired(), // AO3
   characters: array(string().notRequired()).notRequired(), // AO3
   relationships: array(string().notRequired()).notRequired(), // AO3
 });
