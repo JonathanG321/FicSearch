@@ -46,10 +46,8 @@ const searchSchema = object({
   kudos: array(number().notRequired()).length(2).notRequired(), // AO3
   bookmarks: array(number().notRequired()).length(2).notRequired(), // AO3
   comments: array(number().notRequired()).length(2).notRequired(), // AO3
-  // TODO: Check for how this data should be sent
-  crossovers: boolean(), // AO3
-  completionStatus: boolean(), // AO3
-  //
+  crossovers: string().oneOf(["T", "F"]).nullable().default(null), // AO3
+  completionStatus: string().oneOf(["T", "F"]).nullable().default(null), // AO3
   sortColumn: string().oneOf(sortByValues).default("_score").notRequired(), // AO3
   sortDirection: string().oneOf(["desc", "asc"]).default("desc").notRequired(), // AO3
   revisedAt: date().notRequired(), // AO3
