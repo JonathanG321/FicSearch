@@ -11,6 +11,7 @@ import DropdownField from "./common/Fields/DropdownField";
 import CalendarField from "./common/Fields/CalendarField";
 import CheckboxField from "./common/Fields/CheckboxField";
 import { sortByOptions } from "../utils/ao3";
+import MultiStateCheckboxField from "./common/Fields/MultiStateCheckboxField";
 
 export type SearchFormType = { test: string };
 
@@ -65,6 +66,19 @@ function SearchForm({}: SearchFormType) {
     getFieldHelpers,
     getFieldMeta,
   };
+
+  const crossoversLabel =
+    rawValues.crossovers === null
+      ? "Include Crossovers"
+      : rawValues.crossovers === "T"
+      ? "Only Crossovers"
+      : "No Crossovers";
+  const completionLabel =
+    rawValues.completionStatus === null
+      ? "All Works"
+      : rawValues.completionStatus === "T"
+      ? "Only Complete Works"
+      : "Only In Progress Works";
 
   return (
     <div className="w-9/12 py-10 text-white lg:w-9/12">
@@ -176,16 +190,30 @@ function SearchForm({}: SearchFormType) {
             label="Search for Oneshots only?"
             fieldPath="singleChapter"
           />
-          <CheckboxField<SearchSchema>
-            {...commonFormFunctions}
-            label="Crossovers Only?"
-            fieldPath="crossovers"
-          />
-          <CheckboxField<SearchSchema>
-            {...commonFormFunctions}
-            label="Complete Fics Only?"
-            fieldPath="completionStatus"
-          />
+          <div className="flex">
+            <span className="mx-2 my-4">Crossovers: </span>
+            <MultiStateCheckboxField<SearchSchema>
+              {...commonFormFunctions}
+              label={crossoversLabel}
+              fieldPath="crossovers"
+              options={[
+                { value: "T", icon: "pi pi-check" },
+                { value: "F", icon: "pi pi-times" },
+              ]}
+            />
+          </div>
+          <div className="flex">
+            <span className="mx-2 my-4">Completion Status: </span>
+            <MultiStateCheckboxField<SearchSchema>
+              {...commonFormFunctions}
+              label={completionLabel}
+              fieldPath="completionStatus"
+              options={[
+                { value: "T", icon: "pi pi-check" },
+                { value: "F", icon: "pi pi-times" },
+              ]}
+            />
+          </div>
           <DropdownField<SearchSchema>
             {...commonFormFunctions}
             options={languages.map((language) => ({
