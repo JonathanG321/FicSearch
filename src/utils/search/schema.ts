@@ -29,7 +29,10 @@ const searchSchema = object({
   users: array(string().notRequired()).notRequired(), // Universal
   wordCountLower: string().notRequired(), // Universal
   wordCountUpper: string().notRequired(), // Universal
-  wordCount: array(number().notRequired()).length(2).notRequired(), // Universal
+  wordCount: array(number().notRequired())
+    .length(2)
+    .default(Array.from<number>({ length: 2 }))
+    .notRequired(), // Universal
   excludeTags: array(string().notRequired()).notRequired(), // Space Battles
   newerThan: date().notRequired(), // Space Battles
   olderThan: date().notRequired(), // Space Battles
@@ -42,10 +45,22 @@ const searchSchema = object({
   language: string().notRequired(), // AO3
   fandoms: array(string().notRequired()).notRequired(), // AO3
   rating: array(number().min(1).max(5).notRequired()).length(2).notRequired(), // AO3
-  hits: array(number().notRequired()).length(2).notRequired(), // AO3
-  kudos: array(number().notRequired()).length(2).notRequired(), // AO3
-  bookmarks: array(number().notRequired()).length(2).notRequired(), // AO3
-  comments: array(number().notRequired()).length(2).notRequired(), // AO3
+  hits: array(number().notRequired())
+    .length(2)
+    .default(Array.from<number>({ length: 2 }))
+    .notRequired(), // AO3
+  kudos: array(number().notRequired())
+    .length(2)
+    .default(Array.from<number>({ length: 2 }))
+    .notRequired(), // AO3
+  bookmarks: array(number().notRequired())
+    .length(2)
+    .default(Array.from<number>({ length: 2 }))
+    .notRequired(), // AO3
+  comments: array(number().notRequired())
+    .length(2)
+    .default(Array.from<number>({ length: 2 }))
+    .notRequired(), // AO3
   crossovers: string().oneOf(["T", "F"]).nullable().default(null), // AO3
   completionStatus: string().oneOf(["T", "F"]).nullable().default(null), // AO3
   sortColumn: string().oneOf(sortByValues).default("_score").notRequired(), // AO3
