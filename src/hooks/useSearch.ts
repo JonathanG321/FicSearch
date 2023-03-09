@@ -2,7 +2,10 @@ import { useContext, useEffect, useRef } from "react";
 import { useFormik } from "formik";
 import SearchContext from "../contexts/SearchContext";
 import { getAllFormErrors } from "../utils/search/schema";
+import { trpc } from "../utils/trpc";
 import type { TUseSearch } from "../types/search";
+import type { spaceBattlesInputType } from "../server/trpc/router/spaceBattles";
+import type { AO3InputType } from "../server/trpc/router/ao3";
 
 const useSearch: TUseSearch = () => {
   const { search, updateSearch } = useContext(SearchContext);
@@ -25,7 +28,11 @@ const useSearch: TUseSearch = () => {
     initialTouched: search.touched,
     initialErrors: search.errors,
     onSubmit: (validatedValues) => {
-      console.warn({ validatedValues });
+      const ao3Works = trpc.AO3.search.useQuery({ ...validatedValues, page: 0 } as typeof AO3InputType);
+      const spaceBattlesWorks = trpc.spaceBattles.search.useQuery(
+        validatedValues as typeof spaceBattlesInputType
+      );
+      console.warn({ ao3Works, spaceBattlesWorks });
     },
     validate: async (currentValues) => {
       return getAllFormErrors(currentValues);
