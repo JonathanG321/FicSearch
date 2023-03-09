@@ -3,6 +3,7 @@ import { useSearch } from "../hooks/useSearch";
 import { type SearchSchema } from "../utils/search/schema";
 import { type CommonFormFunctions } from "../types/forms";
 import { Card } from "primereact/card";
+import { Button } from "primereact/button";
 import TextField from "./common/Fields/TextField";
 import NumberField from "./common/Fields/NumberField";
 import { languages } from "../utils/languages";
@@ -10,12 +11,10 @@ import ChipField from "./common/Fields/ChipField";
 import DropdownField from "./common/Fields/DropdownField";
 import CalendarField from "./common/Fields/CalendarField";
 import CheckboxField from "./common/Fields/CheckboxField";
-import { sortByOptions } from "../utils/ao3";
 import MultiStateCheckboxField from "./common/Fields/MultiStateCheckboxField";
+import { sortByOptions } from "../utils/ao3";
 
-export type SearchFormType = { test: string };
-
-function SearchForm({}: SearchFormType) {
+function SearchForm() {
   const {
     rawValues,
     setFieldValue,
@@ -50,12 +49,15 @@ function SearchForm({}: SearchFormType) {
 
   function onChangeTuple(e: any, path: keyof SearchSchema, order: "min" | "max") {
     const { setTouched: setFieldTouched } = getFieldHelpers(path);
-    const otherValue = rawValues[path] && Array.isArray(rawValues[path]) ? rawValues[path] : undefined;
+    const otherValue = rawValues[path];
     setFieldTouched(true);
-    if (order === "min") {
-      setFieldValue(path, [e.target.value, Array.isArray(otherValue) ? otherValue[1] : undefined]);
+    console.log(e);
+    if (otherValue && Array.isArray(otherValue) && order === "min") {
+      setFieldValue(path, [e.target.value, otherValue[1]]);
+    } else if (otherValue && Array.isArray(otherValue) && order === "max") {
+      setFieldValue(path, [otherValue[0], e.target.value]);
     } else {
-      setFieldValue(path, [Array.isArray(otherValue) ? otherValue[0] : undefined, e.target.value]);
+      setFieldValue(path, rawValues[path]);
     }
   }
 
@@ -231,6 +233,8 @@ function SearchForm({}: SearchFormType) {
               max={5}
               label="Min Rating"
               fieldPath="rating"
+              useForceValue
+              forceValue={Array.isArray(rawValues.rating) ? rawValues.rating[0] : null}
               onChange={(e) => onChangeTuple(e, "rating", "min")}
             />
             <span className="flex flex-col justify-center text-center text-5xl"> - </span>
@@ -240,82 +244,84 @@ function SearchForm({}: SearchFormType) {
               max={5}
               label="Max Rating"
               fieldPath="rating"
+              useForceValue
+              forceValue={Array.isArray(rawValues.rating) ? rawValues.rating[1] : null}
               onChange={(e) => onChangeTuple(e, "rating", "max")}
             />
           </div>
           <div className="flex">
             <NumberField<SearchSchema>
               {...commonFormFunctions}
-              min={1}
-              max={5}
               label="Min Hits"
               fieldPath="hits"
+              useForceValue
+              forceValue={Array.isArray(rawValues.hits) ? rawValues.hits[0] : null}
               onChange={(e) => onChangeTuple(e, "hits", "min")}
             />
             <span className="flex flex-col justify-center text-center text-5xl"> - </span>
             <NumberField<SearchSchema>
               {...commonFormFunctions}
-              min={1}
-              max={5}
               label="Max Hits"
               fieldPath="hits"
+              useForceValue
+              forceValue={Array.isArray(rawValues.hits) ? rawValues.hits[1] : null}
               onChange={(e) => onChangeTuple(e, "hits", "max")}
             />
           </div>
           <div className="flex">
             <NumberField<SearchSchema>
               {...commonFormFunctions}
-              min={1}
-              max={5}
               label="Min Kudos"
               fieldPath="kudos"
+              useForceValue
+              forceValue={Array.isArray(rawValues.kudos) ? rawValues.kudos[0] : null}
               onChange={(e) => onChangeTuple(e, "kudos", "min")}
             />
             <span className="flex flex-col justify-center text-center text-5xl"> - </span>
             <NumberField<SearchSchema>
               {...commonFormFunctions}
-              min={1}
-              max={5}
               label="Max Kudos"
               fieldPath="kudos"
+              useForceValue
+              forceValue={Array.isArray(rawValues.kudos) ? rawValues.kudos[1] : null}
               onChange={(e) => onChangeTuple(e, "kudos", "max")}
             />
           </div>
           <div className="flex">
             <NumberField<SearchSchema>
               {...commonFormFunctions}
-              min={1}
-              max={5}
               label="Min Bookmarks"
               fieldPath="bookmarks"
+              useForceValue
+              forceValue={Array.isArray(rawValues.bookmarks) ? rawValues.bookmarks[0] : null}
               onChange={(e) => onChangeTuple(e, "bookmarks", "min")}
             />
             <span className="flex flex-col justify-center text-center text-5xl"> - </span>
             <NumberField<SearchSchema>
               {...commonFormFunctions}
-              min={1}
-              max={5}
               label="Max Bookmarks"
               fieldPath="bookmarks"
+              useForceValue
+              forceValue={Array.isArray(rawValues.bookmarks) ? rawValues.bookmarks[1] : null}
               onChange={(e) => onChangeTuple(e, "bookmarks", "max")}
             />
           </div>
           <div className="flex">
             <NumberField<SearchSchema>
               {...commonFormFunctions}
-              min={1}
-              max={5}
               label="Min Comments"
               fieldPath="comments"
+              useForceValue
+              forceValue={Array.isArray(rawValues.comments) ? rawValues.comments[0] : null}
               onChange={(e) => onChangeTuple(e, "comments", "min")}
             />
             <span className="flex flex-col justify-center text-center text-5xl"> - </span>
             <NumberField<SearchSchema>
               {...commonFormFunctions}
-              min={1}
-              max={5}
               label="Max Comments"
               fieldPath="comments"
+              useForceValue
+              forceValue={Array.isArray(rawValues.comments) ? rawValues.comments[2] : null}
               onChange={(e) => onChangeTuple(e, "comments", "max")}
             />
           </div>
@@ -348,6 +354,11 @@ function SearchForm({}: SearchFormType) {
           <ChipField<SearchSchema> {...commonFormFunctions} label="Characters" fieldPath="characters" />
           <ChipField<SearchSchema> {...commonFormFunctions} label="Relationships" fieldPath="relationships" />
         </Card>
+        <div className="mt-4 flex justify-center">
+          <Button className="block w-full text-center text-3xl font-bold" type="submit">
+            Search
+          </Button>
+        </div>
       </form>
     </div>
   );
