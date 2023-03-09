@@ -51,7 +51,6 @@ function SearchForm() {
     const { setTouched: setFieldTouched } = getFieldHelpers(path);
     const otherValue = rawValues[path];
     setFieldTouched(true);
-    console.log(e);
     if (otherValue && Array.isArray(otherValue) && order === "min") {
       setFieldValue(path, [e.target.value, otherValue[1]]);
     } else if (otherValue && Array.isArray(otherValue) && order === "max") {
@@ -321,7 +320,7 @@ function SearchForm() {
               label="Max Comments"
               fieldPath="comments"
               useForceValue
-              forceValue={Array.isArray(rawValues.comments) ? rawValues.comments[2] : null}
+              forceValue={Array.isArray(rawValues.comments) ? rawValues.comments[1] : null}
               onChange={(e) => onChangeTuple(e, "comments", "max")}
             />
           </div>
