@@ -38,12 +38,12 @@ function spaceBattlesInput() {
       wordCountUpper: z.string().optional(),
       replies: z.string().optional(),
       order: z.string().optional().default("date"),
-      session: z.null().optional().default(null),
+      // session: z.null().optional().default(null),
     })
     .nullish();
 }
 
-const spaceBattlesInputType = spaceBattlesInput()._type;
+export const spaceBattlesInputType = spaceBattlesInput()._type;
 
 function getSpaceBattlesURL(input: NonNullable<typeof spaceBattlesInputType>) {
   let url =
@@ -56,7 +56,7 @@ function getSpaceBattlesURL(input: NonNullable<typeof spaceBattlesInputType>) {
   if (input.users[0]) url = url.concat(`&c[users]=${input.users.join(",")}`);
   if (input.wordCountLower) url = url.concat(`&c[word_count][lower]=${input.wordCountLower}`);
   if (input.wordCountUpper) url = url.concat(`&c[word_count][upper]=${input.wordCountUpper}`);
-  if (input.replies) url = url.concat(`&c[min_reply_count]=${input.replies}`);
+  if (input.replies && input.replies[0]) url = url.concat(`&c[min_reply_count]=${input.replies[0]}`);
   if (input.order) url = url.concat(`&o=${input.order}`);
   return url;
 }
@@ -94,7 +94,7 @@ async function getWorkFromArticle(article: HTMLElement): Promise<Work> {
 async function processSpaceBattlesSearch(req: Response) {
   const parsed = parse(await req.text());
   const results = parsed.querySelector("ol");
-  console.log(parsed.innerHTML);
+  // console.log(parsed.innerHTML);
 
   if (
     !results ||
@@ -121,43 +121,43 @@ export const spaceBattlesRouter = router({
     // const search = { results: [], totalResults: 0, pages: 0 };
 
     let req = null;
-    if (input.session === null)
-      req = await fetch("https://forums.spacebattles.com", {
-        method: "POST",
-        referrer: url,
-        redirect: "follow",
-        headers: [
-          ["authority", "forums.spacebattles.com"],
-          ["path", "/search/search"],
-          ["scheme", "https"],
-          [
-            "accept",
-            "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9",
-          ],
-          ["accept-encoding", "gzip, deflate, br"],
-          ["accept-language", "en-US,en;q=0.9"],
-          // ["cache-control", "max-age=0"],
-          [
-            "cookie",
-            "__gads=ID=abd70bf29679d654:T=1643190624:S=ALNI_Mb8fxRl_aj5UkA2kncOcLxh0jGDDw; cto_bundle=_s2EJV9QRmdVb3FtWTVBM0YlMkJsM3ltZjNhU2FBajF2dHlhWHdDTkN6MndlN1kxJTJCbW5YZEthWFNsT0hmWU8zSEltQTRnJTJCVjhhZmdOMXlqbG80YXN0cExQNkEwdVlZdWhPckRtVG5WUmR5U09sV3JRNEFwZUt5MCUyRlZLRkJhOXg2aHBBYU83empGTWtTNzFpc3NWYkZPTWg4VnExc1VYeHZOeEljdEZuRjNCSDFYdWJQZFpuTTM0ajVvWiUyQjQyelhUOEdHeGRZVk1UeWFzSHRHOWx0WHJVTW1KS2NvUSUzRCUzRA; cf_clearance=rWA_fGyucvAqRh7IuRxoMvcZtrFCdYQ_wSSZib3oqrE-1661744578-0-150; _pbjs_userid_consent_data=3524755945110770; __qca=P0-249217702-1671157176011; __gpi=UID=00000908d8dcb887:T=1670126958:RT=1672743521:S=ALNI_MYaTFAE7_qPdIyIt6tsY8coHpe36Q; _ga=GA1.2.1513995099.1568686015; _ga_F3CLTL2CJQ=GS1.1.1673389445.123.0.1673389448.0.0.0; xf_session=U45Linrs-vPRMG6_YS53voeAT6nxPKLL; xf_csrf=djQcqR6nLWL8-R-O",
-          ],
-          ["origin", "https://forums.spacebattles.com"],
-          ["referer", url],
-          // ["if-modified-since", "Thu, 12 Jan 2023 18:03:05 GMT"],
-          // ["sec-cha-ua", '"Not?A_Brand";v="8", "Chromium";v="108", "Google Chrome";v="108"'],
-          // ["sec-cha-ua-mobile", "?0"],
-          // ["sec-cha-ua-platform", '"macOS"'],
-          // ["sec-fetch-dest", "document"],
-          // ["sec-fetch-mode", "navigate"],
-          // ["sec-fetch-site", "same-origin"],
-          // ["sec-fetch-user", "?1"],
-          // ["upgrade-insecure-requests", "1"],
-          // [
-          //   "user-agent",
-          //   "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36",
-          // ],
+    // if (input.session === null)
+    req = await fetch("https://forums.spacebattles.com", {
+      method: "POST",
+      referrer: url,
+      redirect: "follow",
+      headers: [
+        ["authority", "forums.spacebattles.com"],
+        ["path", "/search/search"],
+        ["scheme", "https"],
+        [
+          "accept",
+          "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9",
         ],
-      });
+        ["accept-encoding", "gzip, deflate, br"],
+        ["accept-language", "en-US,en;q=0.9"],
+        // ["cache-control", "max-age=0"],
+        [
+          "cookie",
+          "__gads=ID=abd70bf29679d654:T=1643190624:S=ALNI_Mb8fxRl_aj5UkA2kncOcLxh0jGDDw; cto_bundle=_s2EJV9QRmdVb3FtWTVBM0YlMkJsM3ltZjNhU2FBajF2dHlhWHdDTkN6MndlN1kxJTJCbW5YZEthWFNsT0hmWU8zSEltQTRnJTJCVjhhZmdOMXlqbG80YXN0cExQNkEwdVlZdWhPckRtVG5WUmR5U09sV3JRNEFwZUt5MCUyRlZLRkJhOXg2aHBBYU83empGTWtTNzFpc3NWYkZPTWg4VnExc1VYeHZOeEljdEZuRjNCSDFYdWJQZFpuTTM0ajVvWiUyQjQyelhUOEdHeGRZVk1UeWFzSHRHOWx0WHJVTW1KS2NvUSUzRCUzRA; cf_clearance=rWA_fGyucvAqRh7IuRxoMvcZtrFCdYQ_wSSZib3oqrE-1661744578-0-150; _pbjs_userid_consent_data=3524755945110770; __qca=P0-249217702-1671157176011; __gpi=UID=00000908d8dcb887:T=1670126958:RT=1672743521:S=ALNI_MYaTFAE7_qPdIyIt6tsY8coHpe36Q; _ga=GA1.2.1513995099.1568686015; _ga_F3CLTL2CJQ=GS1.1.1673389445.123.0.1673389448.0.0.0; xf_session=U45Linrs-vPRMG6_YS53voeAT6nxPKLL; xf_csrf=djQcqR6nLWL8-R-O",
+        ],
+        ["origin", "https://forums.spacebattles.com"],
+        ["referer", url],
+        // ["if-modified-since", "Thu, 12 Jan 2023 18:03:05 GMT"],
+        // ["sec-cha-ua", '"Not?A_Brand";v="8", "Chromium";v="108", "Google Chrome";v="108"'],
+        // ["sec-cha-ua-mobile", "?0"],
+        // ["sec-cha-ua-platform", '"macOS"'],
+        // ["sec-fetch-dest", "document"],
+        // ["sec-fetch-mode", "navigate"],
+        // ["sec-fetch-site", "same-origin"],
+        // ["sec-fetch-user", "?1"],
+        // ["upgrade-insecure-requests", "1"],
+        // [
+        //   "user-agent",
+        //   "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36",
+        // ],
+      ],
+    });
     // else req = session.get(url)
     if (!req)
       throw new Error("Something went wrong with fetching from SpaceBattles. No request was returned.");

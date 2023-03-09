@@ -10,6 +10,7 @@ import {
   array,
   ValidationError,
   number,
+  tuple,
 } from "yup";
 import { type Form } from "../../types/forms";
 import { sortByValues } from "../ao3";
@@ -29,10 +30,7 @@ const searchSchema = object({
   users: array(string().notRequired()).notRequired(), // Universal
   wordCountLower: string().notRequired(), // Universal
   wordCountUpper: string().notRequired(), // Universal
-  wordCount: array(number().notRequired())
-    .length(2)
-    .default(Array.from<number>({ length: 2 }))
-    .notRequired(), // Universal
+  wordCount: tuple([number(), number().notRequired()]).default([undefined, undefined]).notRequired(), // Universal
   excludeTags: array(string().notRequired()).notRequired(), // Space Battles
   newerThan: date().notRequired(), // Space Battles
   olderThan: date().notRequired(), // Space Battles
@@ -44,23 +42,13 @@ const searchSchema = object({
   singleChapter: boolean(), // AO3
   language: string().notRequired(), // AO3
   fandoms: array(string().notRequired()).notRequired(), // AO3
-  rating: array(number().min(1).max(5).notRequired()).length(2).notRequired(), // AO3
-  hits: array(number().notRequired())
-    .length(2)
-    .default(Array.from<number>({ length: 2 }))
+  rating: tuple([number().min(1).max(5), number().min(1).max(5).notRequired()]).notRequired(), // AO3
+  hits: tuple([number(), number().notRequired()]).default([undefined, undefined]).notRequired(), // AO3
+  kudos: tuple([number().notRequired(), number().notRequired()])
+    .default([undefined, undefined])
     .notRequired(), // AO3
-  kudos: array(number().notRequired())
-    .length(2)
-    .default(Array.from<number>({ length: 2 }))
-    .notRequired(), // AO3
-  bookmarks: array(number().notRequired())
-    .length(2)
-    .default(Array.from<number>({ length: 2 }))
-    .notRequired(), // AO3
-  comments: array(number().notRequired())
-    .length(2)
-    .default(Array.from<number>({ length: 2 }))
-    .notRequired(), // AO3
+  bookmarks: tuple([number(), number().notRequired()]).default([undefined, undefined]).notRequired(), // AO3
+  comments: tuple([number(), number().notRequired()]).default([undefined, undefined]).notRequired(), // AO3
   crossovers: string().oneOf(["T", "F"]).nullable().default(null), // AO3
   completionStatus: string().oneOf(["T", "F"]).nullable().default(null), // AO3
   sortColumn: string().oneOf(sortByValues).default("_score").notRequired(), // AO3

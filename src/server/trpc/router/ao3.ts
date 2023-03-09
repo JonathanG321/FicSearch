@@ -58,27 +58,27 @@ function AO3Input() {
       singleChapter: z.boolean().optional().default(false),
       wordCount: z.tuple([z.number(), z.number().optional()]).optional(),
       language: z.string().optional().default(""),
-      fandoms: z.string().optional().default(""),
+      fandoms: z.string().array().optional(),
       rating: z.tuple([z.number(), z.number().optional()]).optional(),
       hits: z.tuple([z.number(), z.number().optional()]).optional(),
       kudos: z.tuple([z.number(), z.number().optional()]).optional(),
-      crossovers: z.boolean().optional(),
+      crossovers: z.custom<"T" | "F">().nullable().optional().default(null),
       bookmarks: z.tuple([z.number(), z.number().optional()]).optional(),
       comments: z.tuple([z.number(), z.number().optional()]).optional(),
-      completionStatus: z.boolean().optional(),
+      completionStatus: z.custom<"T" | "F">().nullable().optional().default(null),
       page: z.number().optional().default(1),
       sortColumn: z.string().optional().default(""),
       sortDirection: z.string().optional().default(""),
-      revisedAt: z.string().optional().default(""),
-      session: z.null().optional().default(null),
-      characters: z.string().optional().default(""),
-      relationships: z.string().optional().default(""),
-      tags: z.string().optional().default(""),
+      revisedAt: z.date().optional(),
+      // session: z.null().optional().default(null),
+      characters: z.string().array().optional(),
+      relationships: z.string().array().optional(),
+      tags: z.string().array().optional(),
     })
     .nullish();
 }
 
-const AO3InputType = AO3Input()._type;
+export const AO3InputType = AO3Input()._type;
 
 function getAO3URL(input: NonNullable<typeof AO3InputType>) {
   let url = "https://archiveofourown.org/works/search?";
@@ -89,10 +89,10 @@ function getAO3URL(input: NonNullable<typeof AO3InputType>) {
   if (input.singleChapter) url = url.concat(`&work_search[single_chapter]=1`);
   url = urlMerge(url, "word_count", ifTuple(input.wordCount));
   url = urlMerge(url, "language_id", input.language);
-  url = urlMerge(url, "fandom_names", input.fandoms);
-  url = urlMerge(url, "character_names", input.characters);
-  url = urlMerge(url, "relationship_names", input.relationships);
-  url = urlMerge(url, "freeform_names", input.tags);
+  url = urlMerge(url, "fandom_names", input.fandoms?.join(","));
+  url = urlMerge(url, "character_names", input.characters?.join(","));
+  url = urlMerge(url, "relationship_names", input.relationships?.join(","));
+  url = urlMerge(url, "freeform_names", input.tags?.join(","));
   url = urlMerge(url, "rating_ids", ifTuple(input.rating));
   url = urlMerge(url, "hits", ifTuple(input.hits));
   url = urlMerge(url, "kudos_count", ifTuple(input.kudos));
@@ -103,7 +103,7 @@ function getAO3URL(input: NonNullable<typeof AO3InputType>) {
     url = urlMerge(url, "complete", input.completionStatus ? "T" : "F");
   url = urlMerge(url, "sort_column", input.sortColumn);
   url = urlMerge(url, "sort_direction", input.sortDirection);
-  url = urlMerge(url, "revised_at", input.revisedAt);
+  // url = urlMerge(url, "revised_at", input.revisedAt);
   return url;
 }
 
@@ -190,7 +190,7 @@ export const AO3Router = router({
     // const search = { results: [], totalResults: 0, pages: 0 };
 
     let req = null;
-    if (input.session === null) req = await fetch(url);
+    /* if (input.session === null)*/ req = await fetch(url);
     // else req = session.get(url)
     if (!req) throw new Error("Something went wrong with fetching from AO3. No request was returned.");
     if (req.status === 429)
