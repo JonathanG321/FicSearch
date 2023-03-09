@@ -14,6 +14,7 @@ interface Props<T> extends CommonFormFunctions<T> {
   max?: number;
   min?: number;
   forceValue?: number | null;
+  useForceValue?: boolean;
 }
 
 function NumberField<T>({
@@ -28,6 +29,7 @@ function NumberField<T>({
   handleFocus,
   onChange,
   getFieldMeta,
+  useForceValue,
   forceValue,
 }: Props<T>) {
   const { error, touched, value } = getFieldMeta(fieldPath);
@@ -62,7 +64,13 @@ function NumberField<T>({
           <InputNumber
             id={fieldPath}
             name={fieldPath}
-            value={forceValue || typeof value === "string" ? parseInt(value.split(",").join(""), 10) : value}
+            value={
+              useForceValue
+                ? forceValue
+                : typeof value !== "string"
+                ? value
+                : parseInt(value.split(",").join(""), 10)
+            }
             placeholder={placeholder}
             max={max}
             min={min}
@@ -71,7 +79,9 @@ function NumberField<T>({
               "p-invalid": isFormFieldValid(isTouched, error),
               "pl-8": !!icon && !!iconLocation,
             })}
-            onChange={(e) => numberChange(e)}
+            onChange={(e) => {
+              numberChange(e);
+            }}
           />
         </div>
       </FormGroup>
