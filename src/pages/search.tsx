@@ -8,7 +8,6 @@ import { createBlankSearch } from "../utils/search/createBlankSearch";
 import "primereact/resources/primereact.min.css";
 import "primereact/resources/themes/tailwind-light/theme.css";
 import "primeicons/primeicons.css";
-import "primeflex/primeflex.css";
 
 const Search: NextPage = () => {
   const [localSearch, setLocalSearch] = useState<SearchFormType>(createBlankSearch);

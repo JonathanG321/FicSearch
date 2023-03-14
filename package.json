@@ -23,7 +23,6 @@
     "next": "13.0.2",
     "next-auth": "^4.15.1",
     "node-html-parser": "^6.1.4",
-    "primeflex": "^3.3.0",
     "primeicons": "^6.0.1",
     "primereact": "^9.2.0",
     "react": "18.2.0",
