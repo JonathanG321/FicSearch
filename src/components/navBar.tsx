@@ -1,7 +1,7 @@
 import { Button } from "primereact/button";
 import { Card } from "primereact/card";
 import { InputText } from "primereact/inputtext";
-import { type FormEvent, useState, type SetStateAction, type Dispatch } from "react";
+import { type FormEvent, useState, type MouseEvent } from "react";
 import FormGroup from "./common/FormGroup";
 
 /* eslint-disable @typescript-eslint/no-unused-vars */
@@ -20,13 +20,19 @@ export type NavBarType = {
   };
 };
 
+type ShowSiteInfo = { ao3: boolean; ffn: boolean; qq: boolean; sb: boolean; sv: boolean };
+const defaultShowSiteInfo = { ao3: false, ffn: false, qq: false, sb: false, sv: false };
+
 type LoginFormSubmit = (e: FormEvent<HTMLFormElement>, username: string, password: string) => void;
 
-function LoginForm({ onSubmit }: { onSubmit: LoginFormSubmit }) {
+function LoginForm({ onSubmit, label }: { onSubmit: LoginFormSubmit; label: string }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   return (
-    <Card className="hover:cursor-default">
+    <Card
+      className="z-50 hover:cursor-default"
+      header={<div className="mt-3 flex justify-center">{label}</div>}
+    >
       <form onSubmit={(e) => onSubmit(e, username, password)}>
         <FormGroup label="Username">
           <InputText value={username} name="username" onChange={(e) => setUsername(e.target.value)} />
@@ -51,43 +57,47 @@ function IconDisplay(sessionValid: boolean) {
 function SessionDisplay(
   siteName: string,
   session: Session,
-  setSiteInfo: (siteInfo: boolean) => void,
-  showSiteInfo: boolean,
-  onSubmit: LoginFormSubmit
+  setShowSiteInfo: (siteInfo: ShowSiteInfo) => void,
+  showSiteInfo: ShowSiteInfo,
+  onSubmit: LoginFormSubmit,
+  label: string
 ) {
+  function clickListener() {
+    setShowSiteInfo(defaultShowSiteInfo);
+    document.removeEventListener("click", clickListener);
+  }
+  function handleClick(e: MouseEvent<HTMLDivElement>) {
+    e.preventDefault();
+
+    setShowSiteInfo({ ...defaultShowSiteInfo, [siteName.toLowerCase()]: true });
+    document.addEventListener("click", clickListener);
+    e.stopPropagation();
+    // setShowSiteInfo({ showModal: true }, () => {
+    //   document.addEventListener("click", this.closeMenu);
+    // });
+  }
   return (
-    <div
-      onClick={(_) => setSiteInfo(!showSiteInfo)}
-      className="flex h-full items-center border-r-2 px-4 hover:cursor-pointer hover:bg-blue-400"
-    >
-      <div className="flex items-center">{IconDisplay(!!session)}</div>
-      <span className="flex items-center font-bold">{siteName}</span>
-      <div className={showSiteInfo ? "absolute top-5" : "hidden"}>
-        <LoginForm onSubmit={onSubmit} />
+    <>
+      <div
+        onClick={handleClick}
+        className={`flex h-full items-center border-r-2 px-4 hover:cursor-pointer hover:bg-blue-400 ${label}`}
+      >
+        <div className="flex items-center">{IconDisplay(!!session)}</div>
+        <span className="flex items-center font-bold">{siteName}</span>
       </div>
-    </div>
+      <div
+        className={
+          showSiteInfo[siteName.toLowerCase() as keyof ShowSiteInfo] ? "absolute top-10 right-0" : "hidden"
+        }
+      >
+        <LoginForm onSubmit={onSubmit} label={label} />
+      </div>
+    </>
   );
 }
 
 function NavBar({ user }: NavBarType) {
-  const [ao3SiteInfo, setAO3SiteInfo] = useState(false);
-  const [ffnSiteInfo, setFFNSiteInfo] = useState(false);
-  const [qqSiteInfo, setQQSiteInfo] = useState(false);
-  const [sbSiteInfo, setSBSiteInfo] = useState(false);
-  const [svSiteInfo, setSVSiteInfo] = useState(false);
-
-  // function handleClick(setState: Dispatch<SetStateAction<boolean>>, state: boolean) {
-  //   if (!state) {
-  //     document.addEventListener("click", handleOutsideClick, false);
-  //   } else {
-  //     document.removeEventListener("click", handleOutsideClick, false);
-  //   }
-  //   setState(!state);
-  // }
-  // function handleOutsideClick(e: MouseEvent, setState: Dispatch<SetStateAction<boolean>>, state: boolean) {
-  //   if (!this.node.contains(e.target)) handleClick(setState, state);
-  // }
-
+  const [showSiteInfo, setShowSiteInfo] = useState(defaultShowSiteInfo);
   const ao3Login: LoginFormSubmit = function (e, username, password) {
     console.log({ username, password });
   };
@@ -96,11 +106,32 @@ function NavBar({ user }: NavBarType) {
       <h1 className="px-3 font-bold">FicSearch</h1>
       <div className="flex h-full items-center">
         <div className="flex h-full items-center border-x-2 px-4 font-bold">{user.username}</div>
-        {SessionDisplay("AO3", user.sessions.ao3, setAO3SiteInfo, ao3SiteInfo, ao3Login)}
-        {SessionDisplay("FFN", user.sessions.ffn, setFFNSiteInfo, ffnSiteInfo, ao3Login)}
-        {SessionDisplay("QQ", user.sessions.qq, setQQSiteInfo, qqSiteInfo, ao3Login)}
-        {SessionDisplay("SB", user.sessions.sb, setSBSiteInfo, sbSiteInfo, ao3Login)}
-        {SessionDisplay("SV", user.sessions.sv, setSVSiteInfo, svSiteInfo, ao3Login)}
+        {SessionDisplay(
+          "AO3",
+          user.sessions.ao3,
+          setShowSiteInfo,
+          showSiteInfo,
+          ao3Login,
+          "Archive of Our Own"
+        )}
+        {SessionDisplay("FFN", user.sessions.ffn, setShowSiteInfo, showSiteInfo, ao3Login, "FanFiction.Net")}
+        {SessionDisplay(
+          "QQ",
+          user.sessions.qq,
+          setShowSiteInfo,
+          showSiteInfo,
+          ao3Login,
+          "Questionable Questing"
+        )}
+        {SessionDisplay("SB", user.sessions.sb, setShowSiteInfo, showSiteInfo, ao3Login, "Space Battles")}
+        {SessionDisplay(
+          "SV",
+          user.sessions.sv,
+          setShowSiteInfo,
+          showSiteInfo,
+          ao3Login,
+          "Sufficient Velocity"
+        )}
       </div>
     </div>
   );
