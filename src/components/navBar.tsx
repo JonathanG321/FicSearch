@@ -1,7 +1,7 @@
 import { Button } from "primereact/button";
 import { Card } from "primereact/card";
 import { InputText } from "primereact/inputtext";
-import { type FormEvent, useState, type MouseEvent } from "react";
+import { type FormEvent, useState, type MouseEvent, useRef } from "react";
 import FormGroup from "./common/FormGroup";
 
 /* eslint-disable @typescript-eslint/no-unused-vars */
@@ -30,7 +30,7 @@ function LoginForm({ onSubmit, label }: { onSubmit: LoginFormSubmit; label: stri
   const [password, setPassword] = useState("");
   return (
     <Card
-      className="z-50 hover:cursor-default"
+      className={`z-50 hover:cursor-default sub${label.replace(" ", "").replace(".", "")}`}
       header={<div className="mt-3 flex justify-center">{label}</div>}
     >
       <form onSubmit={(e) => onSubmit(e, username, password)}>
@@ -62,19 +62,18 @@ function SessionDisplay(
   onSubmit: LoginFormSubmit,
   label: string
 ) {
-  function clickListener() {
-    setShowSiteInfo(defaultShowSiteInfo);
-    document.removeEventListener("click", clickListener);
+  function clickListener(e: globalThis.MouseEvent) {
+    const formNode = document.querySelector(`.sub${label.replace(" ", "").replace(".", "")}`);
+    if (e.target instanceof Node && formNode && !formNode?.contains(e.target)) {
+      setShowSiteInfo(defaultShowSiteInfo);
+      document.removeEventListener("click", clickListener);
+    }
   }
   function handleClick(e: MouseEvent<HTMLDivElement>) {
     e.preventDefault();
-
     setShowSiteInfo({ ...defaultShowSiteInfo, [siteName.toLowerCase()]: true });
     document.addEventListener("click", clickListener);
     e.stopPropagation();
-    // setShowSiteInfo({ showModal: true }, () => {
-    //   document.addEventListener("click", this.closeMenu);
-    // });
   }
   return (
     <>
