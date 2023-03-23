@@ -1,7 +1,7 @@
 import { Button } from "primereact/button";
 import { Card } from "primereact/card";
 import { InputText } from "primereact/inputtext";
-import { type FormEvent, useState, type MouseEvent, useRef } from "react";
+import { type FormEvent, useState, type MouseEvent } from "react";
 import FormGroup from "./common/FormGroup";
 
 /* eslint-disable @typescript-eslint/no-unused-vars */
@@ -30,7 +30,7 @@ function LoginForm({ onSubmit, label }: { onSubmit: LoginFormSubmit; label: stri
   const [password, setPassword] = useState("");
   return (
     <Card
-      className={`z-50 hover:cursor-default sub${label.replace(" ", "").replace(".", "")}`}
+      className={`z-50 hover:cursor-default sub${label.replace(/ /g, "").replace(".", "")}`}
       header={<div className="mt-3 flex justify-center">{label}</div>}
     >
       <form onSubmit={(e) => onSubmit(e, username, password)}>
@@ -63,8 +63,14 @@ function SessionDisplay(
   label: string
 ) {
   function clickListener(e: globalThis.MouseEvent) {
-    const formNode = document.querySelector(`.sub${label.replace(" ", "").replace(".", "")}`);
-    if (e.target instanceof Node && formNode && !formNode?.contains(e.target)) {
+    const formNode = document.querySelector(`.sub${label.replace(/ /g, "").replace(".", "")}`);
+    const siteLabelNode = document.querySelector(`.${label.replace(/ /g, "").replace(".", "")}`);
+    if (
+      e.target instanceof Node &&
+      formNode &&
+      !formNode?.contains(e.target) &&
+      !siteLabelNode?.contains(e.target)
+    ) {
       setShowSiteInfo(defaultShowSiteInfo);
       document.removeEventListener("click", clickListener);
     }
@@ -73,13 +79,14 @@ function SessionDisplay(
     e.preventDefault();
     setShowSiteInfo({ ...defaultShowSiteInfo, [siteName.toLowerCase()]: true });
     document.addEventListener("click", clickListener);
-    e.stopPropagation();
   }
   return (
     <>
       <div
         onClick={handleClick}
-        className={`flex h-full items-center border-r-2 px-4 hover:cursor-pointer hover:bg-blue-400 ${label}`}
+        className={`flex h-full items-center border-r-2 px-4 hover:cursor-pointer hover:bg-blue-400 ${label
+          .replace(/ /g, "")
+          .replace(".", "")}`}
       >
         <div className="flex items-center">{IconDisplay(!!session)}</div>
         <span className="flex items-center font-bold">{siteName}</span>
