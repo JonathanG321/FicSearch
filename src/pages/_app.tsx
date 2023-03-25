@@ -5,7 +5,7 @@ import { SessionProvider } from "next-auth/react";
 import { trpc } from "../utils/trpc";
 
 import "../styles/globals.scss";
-import NavBar from "../components/navBar";
+import NavBar from "../components/NavBar";
 
 const testUser = {
   username: "Test",
