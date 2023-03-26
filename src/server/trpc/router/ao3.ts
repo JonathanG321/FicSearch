@@ -198,4 +198,22 @@ export const AO3Router = router({
 
     return processAO3Search(req);
   }),
+  login: publicProcedure
+    .input(z.object({ username: z.string(), password: z.string() }))
+    .query(async ({ input }) => {
+      if (!input) throw new Error("Something went wrong with the AO3 Router. No input was given.");
+
+      // const search = { results: [], totalResults: 0, pages: 0 };
+      const req = await fetch(
+        `https://archiveofourown.org/users/login?authenticity_token=9riXYn8UdReE4RFxZ1NLlhAM6L8h1iOzoXYJfIc2fAv3ORK99Vjn6ql4524ZmXuZFF%2Fj8fEVOaekNkzgWJMicw%3D%3D&user%5Blogin%5D=${input.username}&user%5Bpassword%5D=${input.password}&user%5Bremember_me%5D=1&commit=Log+In`,
+        { method: "POST" }
+      );
+
+      if (!req) throw new Error("Something went wrong with fetching from AO3. No request was returned.");
+      if (req.status === 429)
+        throw new Error("We are being rate-limited. Try again in a while or reduce the number of requests");
+
+      console.log({ req });
+      return processAO3Search(req);
+    }),
 });
