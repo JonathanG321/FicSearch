@@ -1,5 +1,4 @@
 import { type Session } from "../../types/sessions";
-import { trpc } from "../../utils/trpc";
 import { type ExternalLoginFormSubmit } from "./externalLoginForm";
 import SessionDisplay from "./sessionDisplay";
 
@@ -17,13 +16,23 @@ export type NavBarType = {
 };
 
 function NavBar({ user }: NavBarType) {
-  const ao3Login: ExternalLoginFormSubmit = function (username, password) {
-    const req = trpc.AO3.login.useQuery({ username, password });
+  const ao3Login: ExternalLoginFormSubmit = async function (username, password) {
+    const req = await fetch(
+      `https://archiveofourown.org/users/login?authenticity_token=9riXYn8UdReE4RFxZ1NLlhAM6L8h1iOzoXYJfIc2fAv3ORK99Vjn6ql4524ZmXuZFF%2Fj8fEVOaekNkzgWJMicw%3D%3D&user%5Blogin%5D=${username}&user%5Bpassword%5D=${password}&user%5Bremember_me%5D=1&commit=Log+In`,
+      { method: "POST", headers: { "sec-fetch-mode": "navigate", origin: "https://archiveofourown.org" } }
+    );
+    console.log({ req });
+  };
+  const ffnLogin: ExternalLoginFormSubmit = async function (username, password) {
+    const req = await fetch(
+      `https://archiveofourown.org/users/login?authenticity_token=9riXYn8UdReE4RFxZ1NLlhAM6L8h1iOzoXYJfIc2fAv3ORK99Vjn6ql4524ZmXuZFF%2Fj8fEVOaekNkzgWJMicw%3D%3D&user%5Blogin%5D=${username}&user%5Bpassword%5D=${password}&user%5Bremember_me%5D=1&commit=Log+In`,
+      { method: "POST", headers: { "sec-fetch-mode": "navigate", origin: "https://archiveofourown.org" } }
+    );
     console.log({ req });
   };
   const siteData = {
     ao3: { siteName: "AO3", label: "Archive of Our Own", session: user.sessions.ao3, onSubmit: ao3Login },
-    ffn: { siteName: "FFN", label: "FanFiction.Net", session: user.sessions.ffn, onSubmit: ao3Login },
+    ffn: { siteName: "FFN", label: "FanFiction.Net", session: user.sessions.ffn, onSubmit: ffnLogin },
     qq: { siteName: "QQ", label: "Questionable Questing", session: user.sessions.qq, onSubmit: ao3Login },
     sb: { siteName: "SB", label: "Space Battles", session: user.sessions.sb, onSubmit: ao3Login },
     sv: { siteName: "SV", label: "Sufficient Velocity", session: user.sessions.sv, onSubmit: ao3Login },

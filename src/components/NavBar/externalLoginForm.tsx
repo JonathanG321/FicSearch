@@ -26,7 +26,9 @@ function ExternalLoginForm({ onSubmit, label }: { onSubmit: ExternalLoginFormSub
             onChange={(e) => setPassword(e.target.value)}
           />
         </FormGroup>
-        <Button onClick={(_) => onSubmit(username, password)}>Login</Button>
+        <Button type="button" onClick={(_) => onSubmit(username, password)}>
+          Login
+        </Button>
       </form>
     </Card>
   );
