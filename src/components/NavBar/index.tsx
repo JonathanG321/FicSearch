@@ -25,8 +25,8 @@ function NavBar({ user }: NavBarType) {
   };
   const ffnLogin: ExternalLoginFormSubmit = async function (username, password) {
     const req = await fetch(
-      `https://archiveofourown.org/users/login?authenticity_token=9riXYn8UdReE4RFxZ1NLlhAM6L8h1iOzoXYJfIc2fAv3ORK99Vjn6ql4524ZmXuZFF%2Fj8fEVOaekNkzgWJMicw%3D%3D&user%5Blogin%5D=${username}&user%5Bpassword%5D=${password}&user%5Bremember_me%5D=1&commit=Log+In`,
-      { method: "POST", headers: { "sec-fetch-mode": "navigate", origin: "https://archiveofourown.org" } }
+      `https://www.fanfiction.net/login.php?email=${username}&password=${password}&g-recaptcha-response=&notop=0&refer=&state=55d880c41f95c98b4f50336e47bee1c1903170aaa4f0cc325474cc8cee6342d7&remember=1`,
+      { method: "POST", mode: "same-origin" }
     );
     console.log({ req });
   };
